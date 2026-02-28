@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh:*)",
+      "Bash(git --version:*)",
+      "WebFetch(domain:www.anthropic.com)",
+      "Bash(python3:*)"
+    ]
+  }
+}
