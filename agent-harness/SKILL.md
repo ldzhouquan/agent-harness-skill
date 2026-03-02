@@ -1,55 +1,91 @@
 ---
 name: agent-harness
-description: "Setup and run AI coding agents across multiple sessions with persistent progress tracking, based on OpenAI's Harness Engineering methodology. Use when: (1) Setting up a new project harness with feature list, progress file, and init script, (2) Continuing work as a coding agent that must resume from where a previous session left off, (3) Managing long-running agent tasks that span hours or days with multi-agent collaboration."
+description: "Setup and run AI coding agents across multiple sessions with persistent progress tracking, based on OpenAI's Harness Engineering and Anthropic's long-running agent methodology. Use when: (1) Setting up a new project harness with feature list, progress file, and init script, (2) Continuing work as a coding agent that must resume from where a previous session left off, (3) Managing long-running agent tasks with structured knowledge base and observability."
 ---
 
 # Agent Harness - Harness Engineering Methodology
 
 ## Overview
 
-This skill enables AI coding agents to work effectively across multiple sessions with persistent state, following OpenAI's Harness Engineering principles - a methodology that leverages AI agents to drive the entire software development lifecycle. It provides two modes:
+This skill enables AI coding agents to work effectively across multiple sessions with persistent state, following:
+- **OpenAI's Harness Engineering principles** - Methodology to leverage AI agents across the entire SDLC
+- **Anthropic's long-running agent architecture** - Single agent, serial execution with external memory
 
-1. **Initializer Mode**: Sets up harness files for a new project
-2. **Coding Agent Mode**: Resumes work following the harness workflow with specialized agent roles
+## Critical First Step: Read .harness/project.md
+
+**ALWAYS START BY READING `.harness/project.md`** - it's your map to the knowledge base.
+
+> This is a map, not the territory. Keep it small (~100 lines), use it to navigate to deeper docs.
+
+## Knowledge Base Structure
+
+The project uses **progressive disclosure** - start with `.harness/project.md`, then go deeper. All harness files are organized in the `.harness/` directory:
+
+```
+.
+├── .harness/              # All harness files live here
+│   ├── project.md         # THE MAP - Start here!
+│   ├── docs/              # Documentation
+│   │   ├── architecture/  # Layered architecture, providers pattern
+│   │   ├── design/        # Workflows, getting started
+│   │   ├── principles/    # Core beliefs, golden rules
+│   │   └── tools/         # Linters, observability, testing
+│   ├── features.json      # Feature tracking (ALL START AS FALSE!)
+│   ├── progress.md        # Session progress log
+│   └── init.sh            # Development server startup
+```
 
 ## Harness Engineering Core Principles
 
-Based on OpenAI's internal methodology:
+### From OpenAI & Anthropic:
 
-1. **Multi-Agent Collaboration**: Specialized agents (implementer, tester, reviewer, observer) work together
-2. **End-to-End Coverage**: From application logic to tests, CI, docs, observability, and internal tools
-3. **Structured Observability**: Built-in logging, metrics, and tracing requirements
-4. **Dependency-Aware Development**: Features are built in the right order with explicit dependencies
-5. **Rigorous Testing**: Unit, integration, and E2E tests defined upfront
-6. **Progress Persistence**: Clear state tracking across sessions
+1. **Single Agent, Serial Execution**: One brain at a time to avoid decision conflicts
+2. **Memory Lives Outside**: Use files, git, logs - never trust context window alone
+3. **Default Failure**: All features start as `passes: false`
+4. **One Feature at a Time**: No multitasking
+5. **Clean State is Mandatory**: Never leave broken code for next session
+6. **Observability First-Class**: Give agents eyes (UI) and stethoscope (logs/metrics)
+7. **JSON > Markdown**: For structured data - models break Markdown structure
+8. **Build to Delete**: Harness code will be obsolete - keep it lightweight
+9. **Cost Inversion**: High-throughput = minimize blocking gates
+10. **Knowledge in the Repo**: If it's not versioned, it doesn't exist
 
 ## Quick Start
 
 ### Setting Up a New Project
 
-Run the setup script to create harness files:
+1. **Read the Getting Started Guide**: `docs/design/getting-started.md`
 
+2. **Run the setup script**:
 ```bash
 python3 scripts/setup_harness.py --project-name "My Project" --project-type web
 ```
 
 This creates:
-- `features.json` - Feature list with pass/fail tracking, priorities, dependencies
-- `progress.md` - Session progress log
-- `init.sh` - Development server startup script
+- `.harness/` directory containing all harness files
+- `.harness/features.json` - Feature list with pass/fail tracking (ALL START AS FALSE!)
+- `.harness/progress.md` - Session progress log
+- `.harness/init.sh` - Development server startup script
+- `.harness/docs/` - Complete documentation directory
 
 ### Continuing Work (Coding Agent)
 
-At the start of each session, the coding agent should:
+**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `.harness/docs/design/session-startup.md`):
 
-1. Run `pwd` to see current directory
-2. Read `git log --oneline -10` for recent history
-3. Read `progress.md` for session summaries
-4. Read `features.json` and choose the highest-priority incomplete feature whose dependencies are all met
-5. Check the `agent_role` field to see if this feature is assigned to your role
-6. Run `./init.sh` to start development server
-7. Run basic end-to-end test to verify app works
-8. Begin work on chosen feature
+1. **Locate**: `pwd && ls -la` - Confirm environment
+2. **Recall**: Read `git log --oneline -20` - Rebuild timeline
+3. **Recall**: Read `.harness/project.md` - Project knowledge map
+4. **Recall**: Read `.harness/progress.md` - Previous session summaries
+5. **Recall**: Read `.harness/features.json` - Feature state
+6. **Choose**: Filter for `passes: false` with all dependencies met, pick highest priority
+7. **Reconstruct**: Run `.harness/init.sh` - Start dev server
+8. **Verify**: Test baseline functionality works
+9. **Begin**: Work on ONE feature
+
+**For complete workflow details, see**:
+- `.harness/docs/design/session-startup.md` - Session startup sequence
+- `.harness/docs/design/feature-workflow.md` - How to implement one feature
+- `.harness/docs/architecture/clean-state.md` - What clean state means
 
 ## Feature List Structure
 
@@ -119,7 +155,7 @@ Rules:
 
 ## Progress File Format
 
-Update `progress.md` at the end of each session:
+Update `.harness/progress.md` at the end of each session:
 
 ```markdown
 ## Session 3 - 2024-01-15
@@ -150,16 +186,17 @@ Update `progress.md` at the end of each session:
 
 1. **Check environment**: `pwd && ls -la`
 2. **Read git history**: `git log --oneline -10`
-3. **Read progress file**: `cat progress.md`
-4. **Read feature list**: `cat features.json`
-5. **Choose feature**: 
+3. **Read project map**: `cat .harness/project.md`
+4. **Read progress file**: `cat .harness/progress.md`
+5. **Read feature list**: `cat .harness/features.json`
+6. **Choose feature**: 
    - Filter for `passes: false`
    - Check that all `depends_on` features have `passes: true`
    - Select by priority: critical > high > medium > low
    - Check `agent_role` matches your current role
-6. **Start dev server**: `./init.sh`
-7. **Verify baseline**: Run basic test to ensure app works
-8. **Check observability**: Ensure logging/metrics are working if applicable
+7. **Start dev server**: `.harness/init.sh`
+8. **Verify baseline**: Run basic test to ensure app works
+9. **Check observability**: Ensure logging/metrics are working if applicable
 
 ### During Session
 
@@ -173,23 +210,111 @@ Update `progress.md` at the end of each session:
 ### End of Session
 
 1. Run tests to verify current feature works
-2. Update `features.json` - set `passes: true` and `completed_at` only after actual testing
-3. Update `progress.md` with session summary, including your agent role
+2. Update `.harness/features.json` - set `passes: true` and `completed_at` only after actual testing
+3. Update `.harness/progress.md` with session summary, including your agent role
 4. Commit changes: `git add -A && git commit -m "Describe what was done"`
 5. If handing off to another agent role, leave clear instructions
 
+## Key Concepts Deep Dive
+
+### Clean State
+
+**THE IRON LAW**: You must leave the codebase in clean state before ending a session.
+
+What clean state means:
+- ✅ All tests pass
+- ✅ No linter errors
+- ✅ Dev server starts without errors
+- ✅ App loads with no console errors
+- ✅ `git status` shows no uncommitted changes
+- ✅ `features.json` updated
+- ✅ `progress.md` has session summary
+
+**Full details**: `.harness/docs/architecture/clean-state.md`
+
+---
+
+### Golden Rules
+
+Enforceable engineering standards (checked by linters):
+
+1. **No Optimistic Data Access** - Validate external data at boundaries
+2. **Prefer Shared Utilities** - No duplicate functions across modules
+3. **External Data Validated** - All incoming data gets schema validation
+4. **No Circular Dependencies** - Linter catches this
+5. **Tests Are Part of Feature** - Feature not done without tests
+6. **Structured Logs** - Logs for machines, comments for humans
+
+**Full details**: `.harness/docs/principles/golden-rules.md`
+
+---
+
+### Architecture: Layered & Providers
+
+**Layered Architecture** (unidirectional dependencies only):
+1. Types → 2. Configuration → 3. Data Access → 4. Service → 5. Runtime → 6. Interface
+
+**Providers Pattern**: Cross-cutting concerns (auth, logging, tracing) through single entry point.
+
+**Full details**:
+- `.harness/docs/architecture/layers.md` - Layer definitions
+- `.harness/docs/architecture/providers.md` - Providers pattern
+
+---
+
+### Linters as Prompt Injectors
+
+Linters don't just say "wrong"—they tell agents **how to fix it**:
+
+```
+❌ Layer violation: service/auth.ts importing from ui/Button.tsx
+💡 Fix: Move shared logic to utils/ or create a service function
+📚 Reference: .harness/docs/architecture/layers.md
+```
+
+**Full details**: `.harness/docs/tools/linters.md`
+
+---
+
+### Build to Delete
+
+Your harness code will be obsolete in ~6 months. Design for disposal:
+- Keep it lightweight
+- Loose coupling like Lego bricks
+- The real value is crash data, not the harness itself
+
+**Full details**: `.harness/docs/principles/build-to-delete.md`
+
+---
+
+### Cost Inversion
+
+In high-throughput agent environments:
+- **Before**: Slow production → heavy review gates
+- **After**: Fast production → minimal gates, fast feedback
+
+Three adjustments:
+1. Minimize blocking gates
+2. Keep PRs short-lived
+3. Don't let flaky tests block everything
+
+**Full details**: `.harness/docs/principles/cost-inversion.md`
+
+---
+
 ## Common Failure Modes & Harness Engineering Solutions
 
-| Problem | Solution |
-|---------|----------|
-| Agent one-shots the app | Work on only one feature at a time, respect dependencies |
-| Agent declares victory too early | Use feature list with all features initially failing, require testing |
-| Agent leaves environment broken | Require git commits and progress file updates |
-| Agent wastes time on setup | Use init.sh script for one-command startup |
-| No observability in production | Use observer agent role and built-in observability requirements |
-| Missing tests | Define test requirements upfront in feature schema |
-| Features built out of order | Use `depends_on` to enforce correct build order |
-| No role clarity | Use `agent_role` to specialize agents |
+| Problem | Solution | Reference |
+|---------|----------|-----------|
+| Agent one-shots the app | One feature at a time | `.harness/docs/design/feature-workflow.md` |
+| Agent declares victory too early | Default failure, require testing | `.harness/docs/principles/core.md` |
+| Agent leaves environment broken | Clean state mandatory | `.harness/docs/architecture/clean-state.md` |
+| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/docs/design/session-startup.md` |
+| No observability | Give agents eyes & stethoscope | `.harness/docs/tools/observability.md` |
+| Missing tests | Tests defined in feature schema | `.harness/docs/tools/testing.md` |
+| Features built out of order | Use `depends_on` | `references/feature_schema.md` |
+| Architecture drift | Layered architecture + linters | `.harness/docs/architecture/layers.md`, `.harness/docs/tools/linters.md` |
+| Code duplication | Golden rules + shared utils | `.harness/docs/principles/golden-rules.md` |
 
 ## Scripts
 

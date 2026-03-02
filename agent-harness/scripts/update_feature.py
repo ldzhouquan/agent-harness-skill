@@ -6,6 +6,7 @@ Supports Harness Engineering enhanced schema with completed_at timestamp
 
 import argparse
 import json
+import os
 from datetime import datetime
 
 def main():
@@ -13,8 +14,22 @@ def main():
     parser.add_argument('--feature-index', type=int, required=True, help='Feature index (0-based)')
     parser.add_argument('--feature-id', type=str, help='Feature ID (alternative to index)')
     parser.add_argument('--passes', type=lambda x: x.lower() == 'true', required=True, help='True or False')
-    parser.add_argument('--file', default='features.json', help='Features file path')
+    parser.add_argument('--file', help='Features file path (default: .harness/features.json)')
     args = parser.parse_args()
+    
+    if args.file is None:
+        default_harness_path = os.path.join('.harness', 'features.json')
+        if os.path.exists(default_harness_path):
+            args.file = default_harness_path
+        elif os.path.exists('features.json'):
+            args.file = 'features.json'
+        else:
+            args.file = default_harness_path
+
+    if not os.path.exists(args.file):
+        print(f"Error: Features file '{args.file}' does not exist")
+        print("Please run setup_harness.py first to initialize the harness files.")
+        return 1
 
     with open(args.file, 'r') as f:
         data = json.load(f)
