@@ -30,6 +30,7 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 │   │   ├── design/        # Workflows, getting started
 │   │   ├── principles/    # Core beliefs, golden rules
 │   │   └── tools/         # Linters, observability, testing
+│   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── features.json      # Feature tracking (ALL START AS FALSE!)
 │   ├── progress.md        # Session progress log
 │   └── init.sh            # Development server startup
@@ -49,6 +50,7 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 8. **Build to Delete**: Harness code will be obsolete - keep it lightweight
 9. **Cost Inversion**: High-throughput = minimize blocking gates
 10. **Knowledge in the Repo**: If it's not versioned, it doesn't exist
+11. **Discussions Must Be Logged**: All requirements, design, and execution plans go to `.harness/discussions/`
 
 ## Quick Start
 
@@ -320,6 +322,47 @@ Three adjustments:
 
 - `scripts/setup_harness.py` - Initialize harness files for a new project
 - `scripts/update_feature.py` - Update feature pass/fail status
+- `scripts/sync_docs.py` - Sync docs between skill and project
+- `scripts/log_discussion.py` - Create structured discussion log files
+
+## Discussion Logging (MANDATORY!)
+
+**ALL meaningful interactions with the Code Agent MUST be logged!** This includes:
+
+- Requirements discussions and clarifications
+- Design decisions and trade-off analysis
+- Execution plans and implementation strategies
+
+### How to Log Discussions
+
+1. **Use the helper script**:
+   ```bash
+   python scripts/log_discussion.py \
+     --type design \
+     --title "Database Schema Design" \
+     --participants "Code Agent, User"
+   ```
+
+2. **Or create manually** in `.harness/discussions/`:
+   - Naming: `YYYYMMDD-HHMM-topic-short-description.md`
+   - Use the template in `.harness/docs/design/discussion-logging.md`
+
+3. **Commit the log** with git:
+   ```bash
+   git add .harness/discussions/20240303-1430-db-schema-design.md
+   git commit -m "Log discussion: Database Schema Design"
+   ```
+
+4. **Reference in progress.md**: Link to the discussion log in your session summary
+
+### Why This Matters
+
+- **Knowledge persistence**: Context isn't lost between sessions
+- **Decision traceability**: Understand why choices were made
+- **Onboarding**: New agents can quickly get up to speed
+- **Retrospective**: Learn from past decisions
+
+**Remember: If it's not in the harness, it didn't happen for the next agent.**
 
 ## References
 

@@ -31,6 +31,7 @@ First time here? Start with:
 ├── .harness/              # All harness files live here
 │   ├── project.md         # You are here - the map
 │   ├── docs/              # Documentation
+│   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── features.json      # Feature tracking (ALL START AS FALSE!)
 │   ├── progress.md        # Session progress log
 │   └── init.sh            # Development server startup
@@ -57,6 +58,11 @@ First time here? Start with:
 - [Custom Linters](docs/tools/linters.md) - Lint rules with auto-fix prompts
 - [Observability](docs/tools/observability.md) - Logs, metrics, and tracing
 - [Testing](docs/tools/testing.md) - Testing requirements and practices
+
+### Discussions & Decisions
+- [Discussions Index](discussions/README.md) - Browse all recorded discussions
+- [Discussion Logging Guide](docs/design/discussion-logging.md) - How to log agent interactions
+- **IMPORTANT**: All requirements, design, and execution plans MUST be logged here!
 
 ## Important Notes
 
@@ -254,6 +260,24 @@ def main():
 
     if not args.skip_docs:
         copy_docs_directory(harness_dir)
+    
+    discussions_dir = os.path.join(harness_dir, 'discussions')
+    os.makedirs(discussions_dir, exist_ok=True)
+    
+    discussions_index = os.path.join(discussions_dir, 'README.md')
+    with open(discussions_index, 'w') as f:
+        f.write("""# Discussions Index
+
+## Recent Discussions
+
+## By Category
+### Requirements
+
+### Design
+
+### Execution Plans
+""")
+    print(f"Created: {discussions_index}")
 
     print("\n" + "="*60)
     print("Harness setup complete! (Enhanced Edition)")
