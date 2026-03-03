@@ -9,16 +9,7 @@ import argparse
 import json
 import os
 import shutil
-import logging
 from datetime import datetime
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-logger = logging.getLogger(__name__)
 
 def create_project_md(project_name):
     """Create project.md - the knowledge map for agents."""
@@ -226,35 +217,26 @@ def main():
     project_md_path = os.path.join(harness_dir, 'project.md')
     with open(project_md_path, 'w') as f:
         f.write(project_md)
-    logger.info(f"Created: {project_md_path}")
+    print(f"Created: {project_md_path}")
 
     features = create_features_json(args.project_name)
     features_path = os.path.join(harness_dir, 'features.json')
-    if not os.path.exists(features_path):
-        with open(features_path, 'w') as f:
-            json.dump(features, f, indent=2)
-        logger.info(f"Created: {features_path}")
-    else:
-        logger.info(f"Skipped: {features_path} (already exists)")
+    with open(features_path, 'w') as f:
+        json.dump(features, f, indent=2)
+    print(f"Created: {features_path}")
 
     progress = create_progress_md(args.project_name)
     progress_path = os.path.join(harness_dir, 'progress.md')
-    if not os.path.exists(progress_path):
-        with open(progress_path, 'w') as f:
-            f.write(progress)
-        logger.info(f"Created: {progress_path}")
-    else:
-        logger.info(f"Skipped: {progress_path} (already exists)")
+    with open(progress_path, 'w') as f:
+        f.write(progress)
+    print(f"Created: {progress_path}")
 
     init_sh = create_init_sh(args.project_type)
     init_path = os.path.join(harness_dir, 'init.sh')
-    if not os.path.exists(init_path):
-        with open(init_path, 'w') as f:
-            f.write(init_sh)
-        os.chmod(init_path, 0o755)
-        logger.info(f"Created: {init_path}")
-    else:
-        logger.info(f"Skipped: {init_path} (already exists)")
+    with open(init_path, 'w') as f:
+        f.write(init_sh)
+    os.chmod(init_path, 0o755)
+    print(f"Created: {init_path}")
 
     if not args.skip_docs:
         copy_skill_templates(harness_dir)
@@ -275,7 +257,7 @@ def main():
 
 ### Execution Plans
 """)
-    logger.info(f"Created: {discussions_index}")
+    print(f"Created: {discussions_index}")
     
     decisions_dir = os.path.join(harness_dir, 'decisions')
     os.makedirs(decisions_dir, exist_ok=True)
@@ -288,7 +270,7 @@ def main():
 
 ## Deprecated/Superseded Decisions
 """)
-    logger.info(f"Created: {decisions_index}")
+    print(f"Created: {decisions_index}")
     
     problems_dir = os.path.join(harness_dir, 'problems')
     os.makedirs(problems_dir, exist_ok=True)
@@ -306,7 +288,7 @@ def main():
 - Resolved: 0
 - Open: 0
 """)
-    logger.info(f"Created: {problems_index}")
+    print(f"Created: {problems_index}")
     
     experiments_dir = os.path.join(harness_dir, 'experiments')
     os.makedirs(experiments_dir, exist_ok=True)
@@ -333,7 +315,7 @@ def main():
 
 ### Hold
 """)
-    logger.info(f"Created: {experiments_index}")
+    print(f"Created: {experiments_index}")
     
     retrospectives_dir = os.path.join(harness_dir, 'retrospectives')
     os.makedirs(retrospectives_dir, exist_ok=True)
@@ -350,7 +332,7 @@ def main():
 
 ## Action Items Tracker
 """)
-    logger.info(f"Created: {retrospectives_index}")
+    print(f"Created: {retrospectives_index}")
 
     print("\n" + "="*60)
     print("Harness setup complete! (Enhanced Edition)")

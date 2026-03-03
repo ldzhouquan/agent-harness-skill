@@ -1,0 +1,506 @@
+---
+name: agent-harness
+description: "Setup and run AI coding agents across multiple sessions with persistent progress tracking, based on OpenAI's Harness Engineering and Anthropic's long-running agent methodology. Use when: (1) Setting up a new project harness with feature list, progress file, and init script, (2) Continuing work as a coding agent that must resume from where a previous session left off, (3) Managing long-running agent tasks with structured knowledge base and observability."
+---
+
+# Agent Harness - Harness Engineering Methodology
+
+## Overview
+
+This skill enables AI coding agents to work effectively across multiple sessions with persistent state, following:
+- **OpenAI's Harness Engineering principles** - Methodology to leverage AI agents across the entire SDLC
+- **Anthropic's long-running agent architecture** - Single agent, serial execution with external memory
+- **Superpowers skills** - Proven TDD, debugging, collaboration, and planning workflows (see references/superpowers/)
+
+## Critical First Step: Read .harness/project.md
+
+**ALWAYS START BY READING `.harness/project.md`** - it's your map to the knowledge base.
+
+> This is a map, not the territory. Keep it small (~100 lines), use it to navigate to deeper docs.
+
+## Knowledge Base Structure
+
+The project uses **progressive disclosure** - start with `.harness/project.md`, then go deeper. All harness files are organized in the `.harness/` directory:
+
+```
+Skill Directory Structure (this skill):
+├── SKILL.md                     # This file - skill definition
+├── docs/                        # Harness usage guides (copied to .harness/guides/)
+│   ├── architecture/            # Harness architecture principles
+│   ├── design/                  # Workflows, capture guides, logging guides
+│   ├── principles/              # Harness core principles
+│   ├── tools/                   # Harness tool guides
+│   └── project-templates/       # Project docs templates (copied to .harness/docs/)
+├── references/                  # Reference materials (copied to user project)
+└── scripts/                     # Helper scripts (partially copied to user project)
+
+User Project .harness/ Structure (after setup):
+├── .harness/                    # All harness files live here
+│   ├── project.md               # THE MAP - Start here!
+│   ├── docs/                    # YOUR PROJECT DOCUMENTATION (edit these!)
+│   │   ├── architecture/        # Project architecture docs (templates)
+│   │   ├── principles/          # Project principles and standards (templates)
+│   │   └── tools/               # Project tools and setup (templates)
+│   ├── guides/                  # HOW TO USE THE HARNESS (read these!)
+│   │   ├── architecture/        # Harness architecture principles
+│   │   ├── design/              # Workflows, capture guides
+│   │   ├── principles/          # Harness core principles
+│   │   └── tools/               # Harness tool guides
+│   ├── references/              # Harness reference materials
+│   ├── scripts/                 # Helper scripts (run these!)
+│   ├── discussions/             # Agent interaction logs (requirements, design, plans)
+│   ├── decisions/               # Architecture Decision Records (ADRs)
+│   ├── problems/                # Problem tracking & debugging logs
+│   ├── experiments/             # Technical experiments & spikes
+│   ├── retrospectives/          # Retrospectives & lessons learned
+│   ├── features.json            # Feature tracking (ALL START AS FALSE!)
+│   ├── progress.md              # Session progress log
+│   └── init.sh                  # Development server startup
+```
+
+## Harness Engineering Core Principles
+
+### From OpenAI & Anthropic:
+
+1. **Single Agent, Serial Execution**: One brain at a time to avoid decision conflicts
+2. **Memory Lives Outside**: Use files, git, logs - never trust context window alone
+3. **Default Failure**: All features start as `passes: false`
+4. **One Feature at a Time**: No multitasking
+5. **Clean State is Mandatory**: Never leave broken code for next session
+6. **Observability First-Class**: Give agents eyes (UI) and stethoscope (logs/metrics)
+7. **JSON > Markdown**: For structured data - models break Markdown structure
+8. **Build to Delete**: Harness code will be obsolete - keep it lightweight
+9. **Cost Inversion**: High-throughput = minimize blocking gates
+10. **Knowledge in the Repo**: If it's not versioned, it doesn't exist
+11. **Discussions Must Be Logged**: All requirements, design, and execution plans go to `.harness/discussions/`
+
+## Quick Start
+
+### Setting Up a New Project
+
+1. **Run the setup script**:
+```bash
+python3 scripts/setup_harness.py --project-name "My Project" --project-type web
+```
+
+This creates:
+- `.harness/` directory containing all harness files
+- `.harness/features.json` - Feature list with pass/fail tracking (ALL START AS FALSE!)
+- `.harness/progress.md` - Session progress log
+- `.harness/init.sh` - Development server startup script
+- `.harness/docs/` - Project documentation templates (edit these!)
+- `.harness/guides/` - How to use the harness (read these!)
+- `.harness/references/` - Harness reference materials
+- `.harness/scripts/` - Helper scripts
+
+### Continuing Work (Coding Agent)
+
+**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `.harness/guides/design/session-startup.md` or `references/workflow.md`):
+
+1. **Locate**: `pwd && ls -la` - Confirm environment
+2. **Recall**: Read `git log --oneline -20` - Rebuild timeline
+3. **Recall**: Read `.harness/project.md` - Project knowledge map
+4. **Recall**: Read `.harness/progress.md` - Previous session summaries
+5. **Recall**: Read `.harness/features.json` - Feature state
+6. **Choose**: Filter for `passes: false` with all dependencies met, pick highest priority
+7. **Reconstruct**: Run `.harness/init.sh` - Start dev server
+8. **Verify**: Test baseline functionality works
+9. **Begin**: Work on ONE feature
+
+**For complete workflow details, see**:
+- `.harness/guides/design/session-startup.md` - Session startup sequence
+- `.harness/guides/design/feature-workflow.md` - How to implement one feature
+- `.harness/guides/architecture/clean-state.md` - What clean state means
+- `.harness/references/workflow.md` - Complete coding agent workflow guide
+
+## Feature List Structure
+
+The `features.json` file uses this enhanced JSON schema:
+
+```json
+{
+  "project": "Project Name",
+  "created": "2024-01-15T10:30:00",
+  "agents": [...],
+  "observability": {...},
+  "features": [
+    {
+      "id": "feature-id",
+      "category": "functional",
+      "description": "Feature description",
+      "priority": "high",
+      "depends_on": ["other-feature-id"],
+      "agent_role": "implementer",
+      "steps": [
+        "Step 1 to verify",
+        "Step 2 to verify"
+      ],
+      "tests": {
+        "unit": true,
+        "integration": true,
+        "e2e": false
+      },
+      "observability": {
+        "logs": ["application"],
+        "metrics": ["response_time"]
+      },
+      "passes": false
+    }
+  ]
+}
+```
+
+Rules:
+- Features start with `"passes": false`
+- Only edit the `passes` and `completed_at` fields
+- Use JSON (not Markdown) - models are less likely to accidentally modify it
+- Always check `depends_on` to ensure prerequisites are met
+- Respect the `agent_role` assignment
+
+## Agent Roles
+
+### Implementer
+- Writes production code
+- Focuses on functional requirements
+- Follows dependency order
+
+### Tester
+- Writes comprehensive tests
+- Verifies functionality works
+- Ensures test coverage requirements are met
+
+### Reviewer
+- Reviews code quality
+- Ensures best practices are followed
+- Validates architectural decisions
+
+### Observer
+- Sets up logging, metrics, and tracing
+- Monitors performance
+- Ensures production readiness
+
+## Progress File Format
+
+Update `.harness/progress.md` at the end of each session:
+
+```markdown
+## Session 3 - 2024-01-15
+
+### Agent Role: implementer
+
+### Completed
+- Implemented user login feature
+- Added session persistence
+- Marked feature `auth-001` as passing
+
+### In Progress
+- User profile page (80% done)
+
+### Next Session
+- Complete user profile page
+- Add password reset flow
+- Observer agent should set up logging for auth module
+
+### Notes
+- Found issue with token refresh, needs investigation
+- All critical dependencies for `profile-001` are now met
+```
+
+## Coding Agent Session Workflow
+
+### Start of Session
+
+1. **Check environment**: `pwd && ls -la`
+2. **Read git history**: `git log --oneline -10`
+3. **Read project map**: `cat .harness/project.md`
+4. **Read progress file**: `cat .harness/progress.md`
+5. **Read feature list**: `cat .harness/features.json`
+6. **Choose feature**: 
+   - Filter for `passes: false`
+   - Check that all `depends_on` features have `passes: true`
+   - Select by priority: critical > high > medium > low
+   - Check `agent_role` matches your current role
+7. **Start dev server**: `.harness/init.sh`
+8. **Verify baseline**: Run basic test to ensure app works
+9. **Check observability**: Ensure logging/metrics are working if applicable
+
+### During Session
+
+1. Work on ONE feature at a time
+2. Test incrementally - don't mark features as passing without verification
+3. Use browser automation (Puppeteer MCP) for end-to-end testing
+4. Write tests as specified in the `tests` field
+5. Add observability as specified in the `observability` field
+6. If you're the implementer, consider what the tester will need
+
+### End of Session
+
+1. Run tests to verify current feature works
+2. Update `.harness/features.json` - set `passes: true` and `completed_at` only after actual testing
+3. Update `.harness/progress.md` with session summary, including your agent role
+4. Commit changes: `git add -A && git commit -m "Describe what was done"`
+5. If handing off to another agent role, leave clear instructions
+
+## Key Concepts Deep Dive
+
+### Clean State
+
+**THE IRON LAW**: You must leave the codebase in clean state before ending a session.
+
+What clean state means:
+- ✅ All tests pass
+- ✅ No linter errors
+- ✅ Dev server starts without errors
+- ✅ App loads with no console errors
+- ✅ `git status` shows no uncommitted changes
+- ✅ `features.json` updated
+- ✅ `progress.md` has session summary
+
+**Full details**: `.harness/guides/architecture/clean-state.md`
+
+---
+
+### Golden Rules
+
+Enforceable engineering standards (checked by linters):
+
+1. **No Optimistic Data Access** - Validate external data at boundaries
+2. **Prefer Shared Utilities** - No duplicate functions across modules
+3. **External Data Validated** - All incoming data gets schema validation
+4. **No Circular Dependencies** - Linter catches this
+5. **Tests Are Part of Feature** - Feature not done without tests
+6. **Structured Logs** - Logs for machines, comments for humans
+
+**Full details**: `.harness/guides/principles/golden-rules.md`
+
+---
+
+### Architecture: Layered & Providers
+
+**Layered Architecture** (unidirectional dependencies only):
+1. Types → 2. Configuration → 3. Data Access → 4. Service → 5. Runtime → 6. Interface
+
+**Providers Pattern**: Cross-cutting concerns (auth, logging, tracing) through single entry point.
+
+**Full details**:
+- `.harness/guides/architecture/layers.md` - Layer definitions
+- `.harness/guides/architecture/providers.md` - Providers pattern
+
+---
+
+### Build to Delete
+
+Your harness code will be obsolete in ~6 months. Design for disposal:
+- Keep it lightweight
+- Loose coupling like Lego bricks
+- The real value is crash data, not the harness itself
+
+**Full details**: `.harness/guides/principles/build-to-delete.md`
+
+---
+
+### Cost Inversion
+
+In high-throughput agent environments:
+- **Before**: Slow production → heavy review gates
+- **After**: Fast production → minimal gates, fast feedback
+
+Three adjustments:
+1. Minimize blocking gates
+2. Keep PRs short-lived
+3. Don't let flaky tests block everything
+
+**Full details**: `.harness/guides/principles/cost-inversion.md`
+
+---
+
+## Common Failure Modes & Harness Engineering Solutions
+
+| Problem | Solution | Reference |
+|---------|----------|-----------|
+| Agent one-shots the app | One feature at a time | `.harness/guides/design/feature-workflow.md` |
+| Agent declares victory too early | Default failure, require testing | `.harness/guides/principles/core.md` |
+| Agent leaves environment broken | Clean state mandatory | `.harness/guides/architecture/clean-state.md` |
+| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/guides/design/session-startup.md` |
+| No observability | Give agents eyes & stethoscope | `.harness/guides/tools/observability.md` |
+| Missing tests | Tests defined in feature schema | `.harness/guides/tools/testing.md` |
+| Features built out of order | Use `depends_on` | `references/feature_schema.md` |
+| Architecture drift | Layered architecture + linters | `.harness/guides/architecture/layers.md`, `.harness/guides/tools/linters.md` |
+| Code duplication | Golden rules + shared utils | `.harness/guides/principles/golden-rules.md` |
+
+## Scripts
+
+- `scripts/setup_harness.py` - Initialize harness files for a new project
+- `scripts/update_feature.py` - Update feature pass/fail status
+- `scripts/log_discussion.py` - Create structured discussion log files
+- `scripts/capture_discussion.py` - Quick capture for brainstorm sessions (RECOMMENDED!)
+
+## Quick Capture Workflow (For Any Skill Interaction!)
+
+**IMPORTANT**: When using other skills for brainstorming, design, or planning - use this workflow to capture conclusions!
+
+### The 3-Step Capture Process
+
+1. **After brainstorming ends → PAUSE!**
+2. **Run the quick capture script**:
+   ```bash
+   python scripts/capture_discussion.py \
+     --title "Your Discussion Title" \
+     --type design \
+     --edit
+   ```
+3. **Fill in the Quick Capture section and commit**
+
+### Why This Works
+
+- **No automation needed** - Simple manual workflow that's reliable
+- **Works with ANY skill** - Doesn't matter what skill you used
+- **Quick and easy** - Takes < 5 minutes
+- **Guaranteed capture** - You control what gets logged
+
+### The Capture Trigger (Ask Yourself)
+
+After ANY meaningful conversation:
+1. Would a new agent understand this without context?
+2. Were alternatives considered?
+3. Would we want to remember this in 3 months?
+
+If YES to ANY → **CAPTURE IT!**
+
+## Knowledge Capture System (MANDATORY!)
+
+**ALL meaningful project knowledge MUST be logged in the harness!** This is a complete system for capturing every aspect of the project journey.
+
+### The 5 Knowledge Capture Categories
+
+| Category | Directory | Purpose |
+|----------|-----------|---------|
+| **Discussions** | `.harness/discussions/` | Requirements, design talks, execution plans |
+| **Decisions** | `.harness/decisions/` | Architecture Decision Records (ADRs) |
+| **Problems** | `.harness/problems/` | Bugs, debugging, issue resolution |
+| **Experiments** | `.harness/experiments/` | Technical spikes, feasibility tests |
+| **Retrospectives** | `.harness/retrospectives/` | Lessons learned, process improvement |
+
+### 1. Discussion Logs
+
+Use for: Requirements, design conversations, execution plans
+
+```bash
+python scripts/log_discussion.py \
+  --type design \
+  --title "Database Schema Design" \
+  --participants "Code Agent, User"
+```
+
+**When to use**: During conversations with the Code Agent
+
+### 2. Architecture Decision Records (ADRs)
+
+Use for: Important technical and architectural decisions
+
+Create in `.harness/decisions/`:
+- Naming: `adr-XXX-short-title.md`
+
+**When to use**: When making a decision that affects architecture, dependencies, or has long-term consequences
+
+### 3. Problem Tracking
+
+Use for: Bugs, errors, debugging sessions, environment issues
+
+Create in `.harness/problems/`:
+- Naming: `problem-XXX-short-description.md`
+
+**When to use**: When encountering and debugging any issue
+
+### 4. Experiments & Spikes
+
+Use for: Technology evaluation, feasibility testing, prototype validation
+
+Create in `.harness/experiments/`:
+- Naming: `experiment-XXX-short-description.md`
+
+**When to use**: When trying new technologies, validating approaches, or testing assumptions
+
+### 5. Retrospectives
+
+Use for: Periodic review, lessons learned, process improvement
+
+Create in `.harness/retrospectives/`:
+- Naming: `retro-YYYYMMDD-type-description.md`
+
+**When to use**: End of sprint, after major milestones, weekly, or after significant learning
+
+### How They Work Together
+
+```
+Discussion → (may lead to) → Experiment
+                                    ↓
+                            Decision (ADR)
+                                    ↓
+                            Implementation
+                                    ↓
+                            (may encounter) → Problem
+                                    ↓
+                            Retrospective (learn from all)
+```
+
+### General Workflow for All Log Types
+
+1. **Create early**: Start the log when you begin the activity
+2. **Be detailed**: Include context, alternatives, rationale
+3. **Link everything**: Connect related logs together
+4. **Commit with git**: Always version control your knowledge
+5. **Update indexes**: Keep the README/index.md files current
+
+### Why This Matters
+
+- **Knowledge persistence**: Nothing gets lost between sessions
+- **Full traceability**: Understand the complete story of every decision
+- **Fast onboarding**: New agents can quickly get up to speed
+- **Continuous improvement**: Learn from both successes and failures
+- **Organizational memory**: Build a knowledge base that outlives any single session
+
+**Remember: If it's not in the harness, it didn't happen for the next agent.**
+
+**The Golden Rule: Log it ALL.**
+
+## Superpowers Skills Integration
+
+This harness includes and recommends the Superpowers skills library for proven development workflows. Superpowers provides battle-tested methodologies for:
+
+### Core Superpowers Skills
+
+| Skill | Purpose | Reference |
+|-------|---------|-----------|
+| **brainstorming** | Turn ideas into designs through collaborative dialogue | `references/superpowers/brainstorming/` |
+| **writing-plans** | Create detailed implementation plans | `references/superpowers/writing-plans/` |
+| **executing-plans** | Execute plans in batches with checkpoints | `references/superpowers/executing-plans/` |
+| **subagent-driven-development** | Fast iteration with two-stage review | `references/superpowers/subagent-driven-development/` |
+| **test-driven-development** | RED-GREEN-REFACTOR cycle | `references/superpowers/test-driven-development/` |
+| **systematic-debugging** | 4-phase root cause analysis | `references/superpowers/systematic-debugging/` |
+| **using-git-worktrees** | Parallel development with isolated workspaces | `references/superpowers/using-git-worktrees/` |
+| **requesting-code-review** | Pre-review checklist and quality gates | `references/superpowers/requesting-code-review/` |
+| **finishing-a-development-branch** | Merge/PR decision workflow | `references/superpowers/finishing-a-development-branch/` |
+
+### Recommended Workflow Combination
+
+1. **Brainstorm** (superpowers) → Refine idea into approved design
+2. **Write Plan** (superpowers) → Break into actionable tasks
+3. **Execute** (superpowers + harness) → Use subagents or batch execution
+4. **Log Everything** (harness) → Capture discussions, decisions, problems
+5. **Review** (superpowers) → Code quality and spec compliance
+6. **Finish** (superpowers) → Clean up and merge
+
+### Key Principles from Superpowers
+
+- **No code before design** - Always get design approval first
+- **RED-GREEN-REFACTOR** - Write tests before code
+- **Two-stage review** - Spec compliance first, then code quality
+- **YAGNI ruthlessly** - Cut unnecessary features
+- **Incremental validation** - Get approval at each step
+
+## References
+
+- `references/feature_schema.md` - Detailed feature list JSON schema
+- `references/superpowers/` - Complete Superpowers skills library
+- `references/workflow.md` - Complete coding agent workflow guide
