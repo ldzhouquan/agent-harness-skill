@@ -31,6 +31,10 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 │   │   ├── principles/    # Core beliefs, golden rules
 │   │   └── tools/         # Linters, observability, testing
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
+│   ├── decisions/         # Architecture Decision Records (ADRs)
+│   ├── problems/          # Problem tracking & debugging logs
+│   ├── experiments/       # Technical experiments & spikes
+│   ├── retrospectives/    # Retrospectives & lessons learned
 │   ├── features.json      # Feature tracking (ALL START AS FALSE!)
 │   ├── progress.md        # Session progress log
 │   └── init.sh            # Development server startup
@@ -325,44 +329,106 @@ Three adjustments:
 - `scripts/sync_docs.py` - Sync docs between skill and project
 - `scripts/log_discussion.py` - Create structured discussion log files
 
-## Discussion Logging (MANDATORY!)
+## Knowledge Capture System (MANDATORY!)
 
-**ALL meaningful interactions with the Code Agent MUST be logged!** This includes:
+**ALL meaningful project knowledge MUST be logged in the harness!** This is a complete system for capturing every aspect of the project journey.
 
-- Requirements discussions and clarifications
-- Design decisions and trade-off analysis
-- Execution plans and implementation strategies
+### The 5 Knowledge Capture Categories
 
-### How to Log Discussions
+| Category | Directory | Purpose | Guide |
+|----------|-----------|---------|-------|
+| **Discussions** | `.harness/discussions/` | Requirements, design talks, execution plans | [Guide](docs/design/discussion-logging.md) |
+| **Decisions** | `.harness/decisions/` | Architecture Decision Records (ADRs) | [Guide](docs/design/decision-records.md) |
+| **Problems** | `.harness/problems/` | Bugs, debugging, issue resolution | [Guide](docs/design/problem-tracking.md) |
+| **Experiments** | `.harness/experiments/` | Technical spikes, feasibility tests | [Guide](docs/design/experiments.md) |
+| **Retrospectives** | `.harness/retrospectives/` | Lessons learned, process improvement | [Guide](docs/design/retrospectives.md) |
 
-1. **Use the helper script**:
-   ```bash
-   python scripts/log_discussion.py \
-     --type design \
-     --title "Database Schema Design" \
-     --participants "Code Agent, User"
-   ```
+### 1. Discussion Logs
 
-2. **Or create manually** in `.harness/discussions/`:
-   - Naming: `YYYYMMDD-HHMM-topic-short-description.md`
-   - Use the template in `.harness/docs/design/discussion-logging.md`
+Use for: Requirements, design conversations, execution plans
 
-3. **Commit the log** with git:
-   ```bash
-   git add .harness/discussions/20240303-1430-db-schema-design.md
-   git commit -m "Log discussion: Database Schema Design"
-   ```
+```bash
+python scripts/log_discussion.py \
+  --type design \
+  --title "Database Schema Design" \
+  --participants "Code Agent, User"
+```
 
-4. **Reference in progress.md**: Link to the discussion log in your session summary
+**When to use**: During conversations with the Code Agent
+
+### 2. Architecture Decision Records (ADRs)
+
+Use for: Important technical and architectural decisions
+
+Create in `.harness/decisions/`:
+- Naming: `adr-XXX-short-title.md`
+- Use template in `.harness/docs/design/decision-records.md`
+
+**When to use**: When making a decision that affects architecture, dependencies, or has long-term consequences
+
+### 3. Problem Tracking
+
+Use for: Bugs, errors, debugging sessions, environment issues
+
+Create in `.harness/problems/`:
+- Naming: `problem-XXX-short-description.md`
+- Use template in `.harness/docs/design/problem-tracking.md`
+
+**When to use**: When encountering and debugging any issue
+
+### 4. Experiments & Spikes
+
+Use for: Technology evaluation, feasibility testing, prototype validation
+
+Create in `.harness/experiments/`:
+- Naming: `experiment-XXX-short-description.md`
+- Use template in `.harness/docs/design/experiments.md`
+
+**When to use**: When trying new technologies, validating approaches, or testing assumptions
+
+### 5. Retrospectives
+
+Use for: Periodic review, lessons learned, process improvement
+
+Create in `.harness/retrospectives/`:
+- Naming: `retro-YYYYMMDD-type-description.md`
+- Use templates in `.harness/docs/design/retrospectives.md`
+
+**When to use**: End of sprint, after major milestones, weekly, or after significant learning
+
+### How They Work Together
+
+```
+Discussion → (may lead to) → Experiment
+                                    ↓
+                            Decision (ADR)
+                                    ↓
+                            Implementation
+                                    ↓
+                            (may encounter) → Problem
+                                    ↓
+                            Retrospective (learn from all)
+```
+
+### General Workflow for All Log Types
+
+1. **Create early**: Start the log when you begin the activity
+2. **Be detailed**: Include context, alternatives, rationale
+3. **Link everything**: Connect related logs together
+4. **Commit with git**: Always version control your knowledge
+5. **Update indexes**: Keep the README/index.md files current
 
 ### Why This Matters
 
-- **Knowledge persistence**: Context isn't lost between sessions
-- **Decision traceability**: Understand why choices were made
-- **Onboarding**: New agents can quickly get up to speed
-- **Retrospective**: Learn from past decisions
+- **Knowledge persistence**: Nothing gets lost between sessions
+- **Full traceability**: Understand the complete story of every decision
+- **Fast onboarding**: New agents can quickly get up to speed
+- **Continuous improvement**: Learn from both successes and failures
+- **Organizational memory**: Build a knowledge base that outlives any single session
 
 **Remember: If it's not in the harness, it didn't happen for the next agent.**
+
+**The Golden Rule: Log it ALL.**
 
 ## References
 

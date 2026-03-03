@@ -32,6 +32,10 @@ First time here? Start with:
 │   ├── project.md         # You are here - the map
 │   ├── docs/              # Documentation
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
+│   ├── decisions/         # Architecture Decision Records (ADRs)
+│   ├── problems/          # Problem tracking & debugging logs
+│   ├── experiments/       # Technical experiments & spikes
+│   ├── retrospectives/    # Retrospectives & lessons learned
 │   ├── features.json      # Feature tracking (ALL START AS FALSE!)
 │   ├── progress.md        # Session progress log
 │   └── init.sh            # Development server startup
@@ -59,10 +63,18 @@ First time here? Start with:
 - [Observability](docs/tools/observability.md) - Logs, metrics, and tracing
 - [Testing](docs/tools/testing.md) - Testing requirements and practices
 
-### Discussions & Decisions
+### Knowledge Capture & Logging
 - [Discussions Index](discussions/README.md) - Browse all recorded discussions
 - [Discussion Logging Guide](docs/design/discussion-logging.md) - How to log agent interactions
-- **IMPORTANT**: All requirements, design, and execution plans MUST be logged here!
+- [Decisions Index](decisions/README.md) - Architecture Decision Records (ADRs)
+- [Decision Records Guide](docs/design/decision-records.md) - How to document technical decisions
+- [Problems Index](problems/README.md) - Bug tracking and debugging logs
+- [Problem Tracking Guide](docs/design/problem-tracking.md) - How to track issues and solutions
+- [Experiments Index](experiments/README.md) - Technical experiments and spikes
+- [Experiments Guide](docs/design/experiments.md) - How to run and document experiments
+- [Retrospectives Index](retrospectives/README.md) - Lessons learned and retrospectives
+- [Retrospectives Guide](docs/design/retrospectives.md) - How to run retrospectives
+- **IMPORTANT**: All requirements, design, decisions, problems, and experiments MUST be logged!
 
 ## Important Notes
 
@@ -278,6 +290,81 @@ def main():
 ### Execution Plans
 """)
     print(f"Created: {discussions_index}")
+    
+    decisions_dir = os.path.join(harness_dir, 'decisions')
+    os.makedirs(decisions_dir, exist_ok=True)
+    
+    decisions_index = os.path.join(decisions_dir, 'index.md')
+    with open(decisions_index, 'w') as f:
+        f.write("""# Architecture Decision Records
+
+## Active Decisions
+
+## Deprecated/Superseded Decisions
+""")
+    print(f"Created: {decisions_index}")
+    
+    problems_dir = os.path.join(harness_dir, 'problems')
+    os.makedirs(problems_dir, exist_ok=True)
+    
+    problems_index = os.path.join(problems_dir, 'index.md')
+    with open(problems_index, 'w') as f:
+        f.write("""# Problem Log Index
+
+## Open Problems
+
+## Resolved Problems
+
+## Statistics
+- Total problems: 0
+- Resolved: 0
+- Open: 0
+""")
+    print(f"Created: {problems_index}")
+    
+    experiments_dir = os.path.join(harness_dir, 'experiments')
+    os.makedirs(experiments_dir, exist_ok=True)
+    
+    experiments_index = os.path.join(experiments_dir, 'index.md')
+    with open(experiments_index, 'w') as f:
+        f.write("""# Experiments Index
+
+## Active
+
+## Completed
+### Adopted
+
+### Rejected
+
+### Needs More Testing
+
+## Technology Radar
+### Adopt
+
+### Trial
+
+### Assess
+
+### Hold
+""")
+    print(f"Created: {experiments_index}")
+    
+    retrospectives_dir = os.path.join(harness_dir, 'retrospectives')
+    os.makedirs(retrospectives_dir, exist_ok=True)
+    
+    retrospectives_index = os.path.join(retrospectives_dir, 'index.md')
+    with open(retrospectives_index, 'w') as f:
+        f.write("""# Retrospectives Index
+
+## Key Learnings Quick Reference
+
+### Technical
+
+### Process
+
+## Action Items Tracker
+""")
+    print(f"Created: {retrospectives_index}")
 
     print("\n" + "="*60)
     print("Harness setup complete! (Enhanced Edition)")
