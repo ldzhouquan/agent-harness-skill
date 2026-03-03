@@ -64,6 +64,7 @@ First time here? Start with:
 - [Testing](docs/tools/testing.md) - Testing requirements and practices
 
 ### Knowledge Capture & Logging
+- [Quick Capture Workflow](docs/design/capture-workflow.md) - How to capture brainstorming from ANY skill ⭐
 - [Discussions Index](discussions/README.md) - Browse all recorded discussions
 - [Discussion Logging Guide](docs/design/discussion-logging.md) - How to log agent interactions
 - [Decisions Index](decisions/README.md) - Architecture Decision Records (ADRs)

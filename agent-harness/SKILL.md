@@ -327,6 +327,43 @@ Three adjustments:
 - `scripts/setup_harness.py` - Initialize harness files for a new project
 - `scripts/update_feature.py` - Update feature pass/fail status
 - `scripts/log_discussion.py` - Create structured discussion log files
+- `scripts/capture_discussion.py` - Quick capture for brainstorm sessions (RECOMMENDED!)
+
+## Quick Capture Workflow (For Any Skill Interaction!)
+
+**IMPORTANT**: When using other skills for brainstorming, design, or planning - use this workflow to capture conclusions!
+
+### The 3-Step Capture Process
+
+1. **After brainstorming ends → PAUSE!**
+2. **Run the quick capture script**:
+   ```bash
+   python scripts/capture_discussion.py \
+     --title "Your Discussion Title" \
+     --type design \
+     --edit
+   ```
+3. **Fill in the Quick Capture section and commit**
+
+### Why This Works
+
+- **No automation needed** - Simple manual workflow that's reliable
+- **Works with ANY skill** - Doesn't matter what skill you used
+- **Quick and easy** - Takes < 5 minutes
+- **Guaranteed capture** - You control what gets logged
+
+### Full Guide
+
+See complete documentation: `.harness/docs/design/capture-workflow.md`
+
+### The Capture Trigger (Ask Yourself)
+
+After ANY meaningful conversation:
+1. Would a new agent understand this without context?
+2. Were alternatives considered?
+3. Would we want to remember this in 3 months?
+
+If YES to ANY → **CAPTURE IT!**
 
 ## Knowledge Capture System (MANDATORY!)
 
