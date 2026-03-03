@@ -31,6 +31,11 @@ First time here? Start by exploring the harness structure below.
 │   │   ├── architecture/  # Project architecture docs
 │   │   ├── principles/    # Project principles and standards
 │   │   └── tools/         # Project tools and setup
+│   ├── guides/            # HOW TO USE THE HARNESS (read these!)
+│   │   ├── architecture/  # Harness architecture principles
+│   │   ├── design/        # Workflows, capture guides
+│   │   ├── principles/    # Harness core principles
+│   │   └── tools/         # Harness tool guides
 │   ├── references/        # Harness reference materials
 │   ├── scripts/           # Helper scripts (run these!)
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
@@ -43,9 +48,28 @@ First time here? Start by exploring the harness structure below.
 │   └── init.sh            # Development server startup
 ```
 
-## Reference Materials (Harness Usage)
+## Harness Usage Guides (Read These!)
 
-These are for understanding how to use the harness:
+Learn how to use the harness effectively:
+
+- [Getting Started](guides/design/getting-started.md) - First steps with the harness
+- [Session Startup](guides/design/session-startup.md) - Standard session startup sequence
+- [Feature Workflow](guides/design/feature-workflow.md) - How to implement features
+- [Quick Capture Workflow](guides/design/capture-workflow.md) - Capture brainstorming from ANY skill ⭐
+- [Git Hygiene](guides/design/git-hygiene.md) - Commit and merge practices
+- [Architecture Overview](guides/architecture/overview.md) - Harness architecture principles
+- [Core Principles](guides/principles/core.md) - Harness engineering principles
+- [Golden Rules](guides/principles/golden-rules.md) - Enforceable engineering standards
+- [Clean State](guides/architecture/clean-state.md) - What "done" means
+- [Layers](guides/architecture/layers.md) - Layered architecture guide
+- [Providers](guides/architecture/providers.md) - Cross-cutting concerns pattern
+- [Build to Delete](guides/principles/build-to-delete.md) - Harness evolution strategy
+- [Cost Inversion](guides/principles/cost-inversion.md) - Throughput-driven engineering
+- [Linters](guides/tools/linters.md) - Lint rules with auto-fix prompts
+- [Observability](guides/tools/observability.md) - Logs, metrics, and tracing
+- [Testing](guides/tools/testing.md) - Testing requirements and practices
+
+## Reference Materials
 
 - [Feature Schema](references/feature_schema.md) - JSON schema for features.json
 - [Workflow Guide](references/workflow.md) - Complete coding agent workflow
@@ -61,10 +85,15 @@ These are for understanding how to use the harness:
 Use these directories to capture project knowledge:
 
 - [Discussions Index](discussions/README.md) - Browse all recorded discussions
+- [Discussion Logging Guide](guides/design/discussion-logging.md) - How to log agent interactions
 - [Decisions Index](decisions/README.md) - Architecture Decision Records (ADRs)
+- [Decision Records Guide](guides/design/decision-records.md) - How to document technical decisions
 - [Problems Index](problems/README.md) - Bug tracking and debugging logs
+- [Problem Tracking Guide](guides/design/problem-tracking.md) - How to track issues and solutions
 - [Experiments Index](experiments/README.md) - Technical experiments and spikes
+- [Experiments Guide](guides/design/experiments.md) - How to run and document experiments
 - [Retrospectives Index](retrospectives/README.md) - Lessons learned and retrospectives
+- [Retrospectives Guide](guides/design/retrospectives.md) - How to run retrospectives
 
 **IMPORTANT**: All requirements, design, decisions, problems, and experiments MUST be logged!
 
@@ -72,9 +101,17 @@ Use these directories to capture project knowledge:
 
 The `docs/` directory contains templates for YOUR project documentation. Edit these to describe YOUR project!
 
-- [Architecture](docs/architecture/overview.md) - Document YOUR project architecture
-- [Principles](docs/principles/core.md) - Define YOUR project principles
-- [Tools](docs/tools/observability.md) - Document YOUR project tools
+- [Architecture Overview](docs/architecture/overview.md) - Document YOUR project architecture
+- [Layered Architecture](docs/architecture/layers.md) - Define YOUR project layers
+- [Providers Pattern](docs/architecture/providers.md) - Document YOUR cross-cutting concerns
+- [Clean State](docs/architecture/clean-state.md) - Define YOUR clean state
+- [Core Principles](docs/principles/core.md) - Define YOUR project principles
+- [Golden Rules](docs/principles/golden-rules.md) - Define YOUR project rules
+- [Build to Delete](docs/principles/build-to-delete.md) - YOUR build-to-delete strategy
+- [Cost Inversion](docs/principles/cost-inversion.md) - YOUR cost inversion approach
+- [Linters](docs/tools/linters.md) - Document YOUR linting setup
+- [Observability](docs/tools/observability.md) - Document YOUR observability setup
+- [Testing](docs/tools/testing.md) - Document YOUR testing setup
 
 ## Important Notes
 
@@ -222,16 +259,28 @@ echo "Starting development server..."
 """
 
 def copy_skill_templates(harness_dir):
-    """Copy project docs templates, references, and scripts to the harness directory."""
+    """Copy guides, project docs templates, references, and scripts to the harness directory."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     skill_root = os.path.dirname(script_dir)
     
     copied = []
     
-    template_docs_source = os.path.join(skill_root, 'templates', 'docs')
-    if os.path.exists(template_docs_source):
+    guides_source = os.path.join(skill_root, 'docs')
+    if os.path.exists(guides_source):
+        guides_dest = os.path.join(harness_dir, 'guides')
+        shutil.copytree(guides_source, guides_dest, dirs_exist_ok=True)
+        
+        project_templates_dir = os.path.join(guides_dest, 'project-templates')
+        if os.path.exists(project_templates_dir):
+            shutil.rmtree(project_templates_dir)
+        
+        print(f"Created: {guides_dest}/")
+        copied.append('harness guides')
+    
+    project_templates_source = os.path.join(skill_root, 'docs', 'project-templates')
+    if os.path.exists(project_templates_source):
         docs_dest = os.path.join(harness_dir, 'docs')
-        shutil.copytree(template_docs_source, docs_dest, dirs_exist_ok=True)
+        shutil.copytree(project_templates_source, docs_dest, dirs_exist_ok=True)
         print(f"Created: {docs_dest}/")
         copied.append('project docs templates')
     

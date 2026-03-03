@@ -23,31 +23,38 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 
 ```
 Skill Directory Structure (this skill):
-├── SKILL.md               # This file - skill definition
-├── docs/                  # Harness usage guides (only in skill)
-│   └── design/            # Workflows, capture guides, logging guides
-├── templates/             # Project docs templates (copied to user project)
-│   └── docs/              # Project docs templates (architecture, principles, tools)
-├── references/            # Reference materials (copied to user project)
-└── scripts/               # Helper scripts (partially copied to user project)
+├── SKILL.md                     # This file - skill definition
+├── docs/                        # Harness usage guides (copied to .harness/guides/)
+│   ├── architecture/            # Harness architecture principles
+│   ├── design/                  # Workflows, capture guides, logging guides
+│   ├── principles/              # Harness core principles
+│   ├── tools/                   # Harness tool guides
+│   └── project-templates/       # Project docs templates (copied to .harness/docs/)
+├── references/                  # Reference materials (copied to user project)
+└── scripts/                     # Helper scripts (partially copied to user project)
 
 User Project .harness/ Structure (after setup):
-├── .harness/              # All harness files live here
-│   ├── project.md         # THE MAP - Start here!
-│   ├── docs/              # YOUR PROJECT DOCUMENTATION (edit these!)
-│   │   ├── architecture/  # Project architecture docs (templates)
-│   │   ├── principles/    # Project principles and standards (templates)
-│   │   └── tools/         # Project tools and setup (templates)
-│   ├── references/        # Harness reference materials
-│   ├── scripts/           # Helper scripts (run these!)
-│   ├── discussions/       # Agent interaction logs (requirements, design, plans)
-│   ├── decisions/         # Architecture Decision Records (ADRs)
-│   ├── problems/          # Problem tracking & debugging logs
-│   ├── experiments/       # Technical experiments & spikes
-│   ├── retrospectives/    # Retrospectives & lessons learned
-│   ├── features.json      # Feature tracking (ALL START AS FALSE!)
-│   ├── progress.md        # Session progress log
-│   └── init.sh            # Development server startup
+├── .harness/                    # All harness files live here
+│   ├── project.md               # THE MAP - Start here!
+│   ├── docs/                    # YOUR PROJECT DOCUMENTATION (edit these!)
+│   │   ├── architecture/        # Project architecture docs (templates)
+│   │   ├── principles/          # Project principles and standards (templates)
+│   │   └── tools/               # Project tools and setup (templates)
+│   ├── guides/                  # HOW TO USE THE HARNESS (read these!)
+│   │   ├── architecture/        # Harness architecture principles
+│   │   ├── design/              # Workflows, capture guides
+│   │   ├── principles/          # Harness core principles
+│   │   └── tools/               # Harness tool guides
+│   ├── references/              # Harness reference materials
+│   ├── scripts/                 # Helper scripts (run these!)
+│   ├── discussions/             # Agent interaction logs (requirements, design, plans)
+│   ├── decisions/               # Architecture Decision Records (ADRs)
+│   ├── problems/                # Problem tracking & debugging logs
+│   ├── experiments/             # Technical experiments & spikes
+│   ├── retrospectives/          # Retrospectives & lessons learned
+│   ├── features.json            # Feature tracking (ALL START AS FALSE!)
+│   ├── progress.md              # Session progress log
+│   └── init.sh                  # Development server startup
 ```
 
 ## Harness Engineering Core Principles
@@ -81,12 +88,13 @@ This creates:
 - `.harness/progress.md` - Session progress log
 - `.harness/init.sh` - Development server startup script
 - `.harness/docs/` - Project documentation templates (edit these!)
+- `.harness/guides/` - How to use the harness (read these!)
 - `.harness/references/` - Harness reference materials
 - `.harness/scripts/` - Helper scripts
 
 ### Continuing Work (Coding Agent)
 
-**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `references/workflow.md`):
+**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `.harness/guides/design/session-startup.md` or `references/workflow.md`):
 
 1. **Locate**: `pwd && ls -la` - Confirm environment
 2. **Recall**: Read `git log --oneline -20` - Rebuild timeline
@@ -99,6 +107,9 @@ This creates:
 9. **Begin**: Work on ONE feature
 
 **For complete workflow details, see**:
+- `.harness/guides/design/session-startup.md` - Session startup sequence
+- `.harness/guides/design/feature-workflow.md` - How to implement one feature
+- `.harness/guides/architecture/clean-state.md` - What clean state means
 - `.harness/references/workflow.md` - Complete coding agent workflow guide
 
 ## Feature List Structure
@@ -244,7 +255,7 @@ What clean state means:
 - ✅ `features.json` updated
 - ✅ `progress.md` has session summary
 
-**Full details**: See the templates in `.harness/docs/architecture/clean-state.md` (customize for your project)
+**Full details**: `.harness/guides/architecture/clean-state.md`
 
 ---
 
@@ -259,7 +270,7 @@ Enforceable engineering standards (checked by linters):
 5. **Tests Are Part of Feature** - Feature not done without tests
 6. **Structured Logs** - Logs for machines, comments for humans
 
-**Full details**: See the template in `.harness/docs/principles/golden-rules.md` (customize for your project)
+**Full details**: `.harness/guides/principles/golden-rules.md`
 
 ---
 
@@ -271,8 +282,8 @@ Enforceable engineering standards (checked by linters):
 **Providers Pattern**: Cross-cutting concerns (auth, logging, tracing) through single entry point.
 
 **Full details**:
-- See the template in `.harness/docs/architecture/layers.md` (customize for your project)
-- See the template in `.harness/docs/architecture/providers.md` (customize for your project)
+- `.harness/guides/architecture/layers.md` - Layer definitions
+- `.harness/guides/architecture/providers.md` - Providers pattern
 
 ---
 
@@ -283,7 +294,7 @@ Your harness code will be obsolete in ~6 months. Design for disposal:
 - Loose coupling like Lego bricks
 - The real value is crash data, not the harness itself
 
-**Full details**: See the template in `.harness/docs/principles/build-to-delete.md` (customize for your project)
+**Full details**: `.harness/guides/principles/build-to-delete.md`
 
 ---
 
@@ -298,7 +309,7 @@ Three adjustments:
 2. Keep PRs short-lived
 3. Don't let flaky tests block everything
 
-**Full details**: See the template in `.harness/docs/principles/cost-inversion.md` (customize for your project)
+**Full details**: `.harness/guides/principles/cost-inversion.md`
 
 ---
 
@@ -306,15 +317,15 @@ Three adjustments:
 
 | Problem | Solution | Reference |
 |---------|----------|-----------|
-| Agent one-shots the app | One feature at a time | `.harness/references/workflow.md` |
-| Agent declares victory too early | Default failure, require testing | `.harness/docs/principles/core.md` (template) |
-| Agent leaves environment broken | Clean state mandatory | `.harness/docs/architecture/clean-state.md` (template) |
-| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/references/workflow.md` |
-| No observability | Give agents eyes & stethoscope | `.harness/docs/tools/observability.md` (template) |
-| Missing tests | Tests defined in feature schema | `.harness/docs/tools/testing.md` (template) |
+| Agent one-shots the app | One feature at a time | `.harness/guides/design/feature-workflow.md` |
+| Agent declares victory too early | Default failure, require testing | `.harness/guides/principles/core.md` |
+| Agent leaves environment broken | Clean state mandatory | `.harness/guides/architecture/clean-state.md` |
+| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/guides/design/session-startup.md` |
+| No observability | Give agents eyes & stethoscope | `.harness/guides/tools/observability.md` |
+| Missing tests | Tests defined in feature schema | `.harness/guides/tools/testing.md` |
 | Features built out of order | Use `depends_on` | `references/feature_schema.md` |
-| Architecture drift | Layered architecture + linters | `.harness/docs/architecture/layers.md` (template) |
-| Code duplication | Golden rules + shared utils | `.harness/docs/principles/golden-rules.md` (template) |
+| Architecture drift | Layered architecture + linters | `.harness/guides/architecture/layers.md`, `.harness/guides/tools/linters.md` |
+| Code duplication | Golden rules + shared utils | `.harness/guides/principles/golden-rules.md` |
 
 ## Scripts
 
