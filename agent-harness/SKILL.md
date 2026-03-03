@@ -10,6 +10,7 @@ description: "Setup and run AI coding agents across multiple sessions with persi
 This skill enables AI coding agents to work effectively across multiple sessions with persistent state, following:
 - **OpenAI's Harness Engineering principles** - Methodology to leverage AI agents across the entire SDLC
 - **Anthropic's long-running agent architecture** - Single agent, serial execution with external memory
+- **Superpowers skills** - Proven TDD, debugging, collaboration, and planning workflows (see references/superpowers/)
 
 ## Critical First Step: Read .harness/project.md
 
@@ -463,7 +464,43 @@ Discussion → (may lead to) → Experiment
 
 **The Golden Rule: Log it ALL.**
 
+## Superpowers Skills Integration
+
+This harness includes and recommends the Superpowers skills library for proven development workflows. Superpowers provides battle-tested methodologies for:
+
+### Core Superpowers Skills
+
+| Skill | Purpose | Reference |
+|-------|---------|-----------|
+| **brainstorming** | Turn ideas into designs through collaborative dialogue | `references/superpowers/brainstorming/` |
+| **writing-plans** | Create detailed implementation plans | `references/superpowers/writing-plans/` |
+| **executing-plans** | Execute plans in batches with checkpoints | `references/superpowers/executing-plans/` |
+| **subagent-driven-development** | Fast iteration with two-stage review | `references/superpowers/subagent-driven-development/` |
+| **test-driven-development** | RED-GREEN-REFACTOR cycle | `references/superpowers/test-driven-development/` |
+| **systematic-debugging** | 4-phase root cause analysis | `references/superpowers/systematic-debugging/` |
+| **using-git-worktrees** | Parallel development with isolated workspaces | `references/superpowers/using-git-worktrees/` |
+| **requesting-code-review** | Pre-review checklist and quality gates | `references/superpowers/requesting-code-review/` |
+| **finishing-a-development-branch** | Merge/PR decision workflow | `references/superpowers/finishing-a-development-branch/` |
+
+### Recommended Workflow Combination
+
+1. **Brainstorm** (superpowers) → Refine idea into approved design
+2. **Write Plan** (superpowers) → Break into actionable tasks
+3. **Execute** (superpowers + harness) → Use subagents or batch execution
+4. **Log Everything** (harness) → Capture discussions, decisions, problems
+5. **Review** (superpowers) → Code quality and spec compliance
+6. **Finish** (superpowers) → Clean up and merge
+
+### Key Principles from Superpowers
+
+- **No code before design** - Always get design approval first
+- **RED-GREEN-REFACTOR** - Write tests before code
+- **Two-stage review** - Spec compliance first, then code quality
+- **YAGNI ruthlessly** - Cut unnecessary features
+- **Incremental validation** - Get approval at each step
+
 ## References
 
 - `references/feature_schema.md` - Detailed feature list JSON schema
+- `references/superpowers/` - Complete Superpowers skills library
 - `references/workflow.md` - Complete coding agent workflow guide

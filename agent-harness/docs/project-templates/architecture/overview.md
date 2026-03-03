@@ -1,8 +1,8 @@
-# Project Architecture Overview
+# Project Architecture
 
 *Document your project's architecture here.*
 
-## High-Level Overview
+## Overview
 
 [Describe the big picture of your architecture]
 
@@ -17,8 +17,6 @@
 - Database:
 - Infrastructure:
 
-## Related Documents
+## Key Decisions
 
-- [Layers](layers.md) - Detailed layer definitions
-- [Providers](providers.md) - Cross-cutting concerns
-- [Clean State](clean-state.md) - What "done" means
+[Document important architectural decisions]

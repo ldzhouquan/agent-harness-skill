@@ -13,117 +13,14 @@ from datetime import datetime
 
 def create_project_md(project_name):
     """Create project.md - the knowledge map for agents."""
-    return f"""# Agent Harness - {project_name}
-
-Welcome! This file is your map to the knowledge base.
-
-## Quick Start
-
-First time here? Start by exploring the harness structure below.
-
-## Project Structure
-
-```
-.
-├── .harness/              # All harness files live here
-│   ├── project.md         # You are here - the map
-│   ├── docs/              # YOUR PROJECT DOCUMENTATION (edit these!)
-│   │   ├── architecture/  # Project architecture docs
-│   │   ├── principles/    # Project principles and standards
-│   │   └── tools/         # Project tools and setup
-│   ├── guides/            # HOW TO USE THE HARNESS (read these!)
-│   │   ├── architecture/  # Harness architecture principles
-│   │   ├── design/        # Workflows, capture guides
-│   │   ├── principles/    # Harness core principles
-│   │   └── tools/         # Harness tool guides
-│   ├── references/        # Harness reference materials
-│   ├── scripts/           # Helper scripts (run these!)
-│   ├── discussions/       # Agent interaction logs (requirements, design, plans)
-│   ├── decisions/         # Architecture Decision Records (ADRs)
-│   ├── problems/          # Problem tracking & debugging logs
-│   ├── experiments/       # Technical experiments & spikes
-│   ├── retrospectives/    # Retrospectives & lessons learned
-│   ├── features.json      # Feature tracking (ALL START AS FALSE!)
-│   ├── progress.md        # Session progress log
-│   └── init.sh            # Development server startup
-```
-
-## Harness Usage Guides (Read These!)
-
-Learn how to use the harness effectively:
-
-- [Getting Started](guides/design/getting-started.md) - First steps with the harness
-- [Session Startup](guides/design/session-startup.md) - Standard session startup sequence
-- [Feature Workflow](guides/design/feature-workflow.md) - How to implement features
-- [Quick Capture Workflow](guides/design/capture-workflow.md) - Capture brainstorming from ANY skill ⭐
-- [Git Hygiene](guides/design/git-hygiene.md) - Commit and merge practices
-- [Architecture Overview](guides/architecture/overview.md) - Harness architecture principles
-- [Core Principles](guides/principles/core.md) - Harness engineering principles
-- [Golden Rules](guides/principles/golden-rules.md) - Enforceable engineering standards
-- [Clean State](guides/architecture/clean-state.md) - What "done" means
-- [Layers](guides/architecture/layers.md) - Layered architecture guide
-- [Providers](guides/architecture/providers.md) - Cross-cutting concerns pattern
-- [Build to Delete](guides/principles/build-to-delete.md) - Harness evolution strategy
-- [Cost Inversion](guides/principles/cost-inversion.md) - Throughput-driven engineering
-- [Linters](guides/tools/linters.md) - Lint rules with auto-fix prompts
-- [Observability](guides/tools/observability.md) - Logs, metrics, and tracing
-- [Testing](guides/tools/testing.md) - Testing requirements and practices
-
-## Reference Materials
-
-- [Feature Schema](references/feature_schema.md) - JSON schema for features.json
-- [Workflow Guide](references/workflow.md) - Complete coding agent workflow
-
-## Helper Scripts
-
-- [update_feature.py](scripts/update_feature.py) - Update feature pass/fail status
-- [log_discussion.py](scripts/log_discussion.py) - Create structured discussion logs
-- [capture_discussion.py](scripts/capture_discussion.py) - Quick capture for brainstorm sessions ⭐
-
-## Knowledge Capture & Logging
-
-Use these directories to capture project knowledge:
-
-- [Discussions Index](discussions/README.md) - Browse all recorded discussions
-- [Discussion Logging Guide](guides/design/discussion-logging.md) - How to log agent interactions
-- [Decisions Index](decisions/README.md) - Architecture Decision Records (ADRs)
-- [Decision Records Guide](guides/design/decision-records.md) - How to document technical decisions
-- [Problems Index](problems/README.md) - Bug tracking and debugging logs
-- [Problem Tracking Guide](guides/design/problem-tracking.md) - How to track issues and solutions
-- [Experiments Index](experiments/README.md) - Technical experiments and spikes
-- [Experiments Guide](guides/design/experiments.md) - How to run and document experiments
-- [Retrospectives Index](retrospectives/README.md) - Lessons learned and retrospectives
-- [Retrospectives Guide](guides/design/retrospectives.md) - How to run retrospectives
-
-**IMPORTANT**: All requirements, design, decisions, problems, and experiments MUST be logged!
-
-## Project Documentation (Edit These!)
-
-The `docs/` directory contains templates for YOUR project documentation. Edit these to describe YOUR project!
-
-- [Architecture Overview](docs/architecture/overview.md) - Document YOUR project architecture
-- [Layered Architecture](docs/architecture/layers.md) - Define YOUR project layers
-- [Providers Pattern](docs/architecture/providers.md) - Document YOUR cross-cutting concerns
-- [Clean State](docs/architecture/clean-state.md) - Define YOUR clean state
-- [Core Principles](docs/principles/core.md) - Define YOUR project principles
-- [Golden Rules](docs/principles/golden-rules.md) - Define YOUR project rules
-- [Build to Delete](docs/principles/build-to-delete.md) - YOUR build-to-delete strategy
-- [Cost Inversion](docs/principles/cost-inversion.md) - YOUR cost inversion approach
-- [Linters](docs/tools/linters.md) - Document YOUR linting setup
-- [Observability](docs/tools/observability.md) - Document YOUR observability setup
-- [Testing](docs/tools/testing.md) - Document YOUR testing setup
-
-## Important Notes
-
-- **This file is the map, not the territory** - Don't put everything here
-- **Knowledge lives in the repo** - If it's not versioned, it doesn't exist for agents
-- **Keep this small (~100 lines)** - It's a navigation aid, not an encyclopedia
-- **JSON > Markdown** - For structured data like feature lists
-
----
-
-*Remember: A good map gets you where you need to go without overwhelming you.*
-"""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    skill_root = os.path.dirname(script_dir)
+    template_path = os.path.join(skill_root, 'templates', 'project.md.template')
+    
+    with open(template_path, 'r', encoding='utf-8') as f:
+        template = f.read()
+    
+    return template.replace('{project_name}', project_name)
 
 def create_features_json(project_name):
     """Create initial features.json with enhanced Harness Engineering structure."""

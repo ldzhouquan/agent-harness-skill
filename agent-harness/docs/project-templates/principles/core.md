@@ -1,15 +1,19 @@
-# Project Core Principles
+# Project Principles
 
-*Document your project's core principles here.*
+*Document your project's principles and standards here.*
 
-## Principle 1
+## Core Values
 
-[Describe your first principle]
+[List your project's core values]
 
-## Principle 2
+## Development Standards
 
-[Describe your second principle]
+[Define your development standards]
 
-## Principle 3
+## Code Quality
 
-[Describe your third principle]
+[Describe code quality expectations]
+
+## Testing Philosophy
+
+[Explain your testing approach]
