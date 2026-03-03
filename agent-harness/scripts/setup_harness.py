@@ -19,10 +19,7 @@ Welcome! This file is your map to the knowledge base.
 
 ## Quick Start
 
-First time here? Start with:
-- [Architecture Overview](docs/architecture/overview.md) - Understand the big picture
-- [Core Principles](docs/principles/core.md) - What we believe in
-- [Getting Started](docs/design/getting-started.md) - First steps
+First time here? Start by exploring the harness structure below.
 
 ## Project Structure
 
@@ -30,8 +27,11 @@ First time here? Start with:
 .
 ├── .harness/              # All harness files live here
 │   ├── project.md         # You are here - the map
-│   ├── docs/              # Documentation
-│   ├── references/        # Reference materials (schemas, workflows)
+│   ├── docs/              # YOUR PROJECT DOCUMENTATION (edit these!)
+│   │   ├── architecture/  # Project architecture docs
+│   │   ├── principles/    # Project principles and standards
+│   │   └── tools/         # Project tools and setup
+│   ├── references/        # Harness reference materials
 │   ├── scripts/           # Helper scripts (run these!)
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── decisions/         # Architecture Decision Records (ADRs)
@@ -43,50 +43,38 @@ First time here? Start with:
 │   └── init.sh            # Development server startup
 ```
 
-## Key Knowledge Areas
+## Reference Materials (Harness Usage)
 
-### Architecture
-- [Layered Architecture](docs/architecture/layers.md) - How code should be structured
-- [Providers Pattern](docs/architecture/providers.md) - Cross-cutting concerns
-- [Clean State](docs/architecture/clean-state.md) - What "done" means
+These are for understanding how to use the harness:
 
-### Principles
-- [Golden Rules](docs/principles/golden-rules.md) - Enforceable engineering standards
-- [Build to Delete](docs/principles/build-to-delete.md) - Harness evolution strategy
-- [Cost Inversion](docs/principles/cost-inversion.md) - Throughput-driven engineering
-
-### Workflow
-- [Session Startup](docs/design/session-startup.md) - Standard sequence for each session
-- [Feature Workflow](docs/design/feature-workflow.md) - How to implement features
-- [Git Hygiene](docs/design/git-hygiene.md) - Commit and merge practices
-
-### Tools
-- [Custom Linters](docs/tools/linters.md) - Lint rules with auto-fix prompts
-- [Observability](docs/tools/observability.md) - Logs, metrics, and tracing
-- [Testing](docs/tools/testing.md) - Testing requirements and practices
-
-### Reference Materials
 - [Feature Schema](references/feature_schema.md) - JSON schema for features.json
 - [Workflow Guide](references/workflow.md) - Complete coding agent workflow
 
-### Helper Scripts
+## Helper Scripts
+
 - [update_feature.py](scripts/update_feature.py) - Update feature pass/fail status
 - [log_discussion.py](scripts/log_discussion.py) - Create structured discussion logs
 - [capture_discussion.py](scripts/capture_discussion.py) - Quick capture for brainstorm sessions ⭐
 
-### Knowledge Capture & Logging
-- [Quick Capture Workflow](docs/design/capture-workflow.md) - How to capture brainstorming from ANY skill ⭐
+## Knowledge Capture & Logging
+
+Use these directories to capture project knowledge:
+
 - [Discussions Index](discussions/README.md) - Browse all recorded discussions
-- [Discussion Logging Guide](docs/design/discussion-logging.md) - How to log agent interactions
 - [Decisions Index](decisions/README.md) - Architecture Decision Records (ADRs)
-- [Decision Records Guide](docs/design/decision-records.md) - How to document technical decisions
 - [Problems Index](problems/README.md) - Bug tracking and debugging logs
-- [Problem Tracking Guide](docs/design/problem-tracking.md) - How to track issues and solutions
 - [Experiments Index](experiments/README.md) - Technical experiments and spikes
-- [Experiments Guide](docs/design/experiments.md) - How to run and document experiments
 - [Retrospectives Index](retrospectives/README.md) - Lessons learned and retrospectives
-- [Retrospectives Guide](docs/design/retrospectives.md) - How to run retrospectives
-- **IMPORTANT**: All requirements, design, decisions, problems, and experiments MUST be logged!
+
+**IMPORTANT**: All requirements, design, decisions, problems, and experiments MUST be logged!
+
+## Project Documentation (Edit These!)
+
+The `docs/` directory contains templates for YOUR project documentation. Edit these to describe YOUR project!
+
+- [Architecture](docs/architecture/overview.md) - Document YOUR project architecture
+- [Principles](docs/principles/core.md) - Define YOUR project principles
+- [Tools](docs/tools/observability.md) - Document YOUR project tools
 
 ## Important Notes
 
@@ -234,18 +222,18 @@ echo "Starting development server..."
 """
 
 def copy_skill_templates(harness_dir):
-    """Copy docs, references, and scripts templates to the harness directory."""
+    """Copy project docs templates, references, and scripts to the harness directory."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     skill_root = os.path.dirname(script_dir)
     
     copied = []
     
-    docs_source = os.path.join(skill_root, 'docs')
-    if os.path.exists(docs_source):
+    template_docs_source = os.path.join(skill_root, 'templates', 'docs')
+    if os.path.exists(template_docs_source):
         docs_dest = os.path.join(harness_dir, 'docs')
-        shutil.copytree(docs_source, docs_dest, dirs_exist_ok=True)
+        shutil.copytree(template_docs_source, docs_dest, dirs_exist_ok=True)
         print(f"Created: {docs_dest}/")
-        copied.append('docs')
+        copied.append('project docs templates')
     
     refs_source = os.path.join(skill_root, 'references')
     if os.path.exists(refs_source):

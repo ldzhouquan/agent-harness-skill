@@ -22,15 +22,23 @@ This skill enables AI coding agents to work effectively across multiple sessions
 The project uses **progressive disclosure** - start with `.harness/project.md`, then go deeper. All harness files are organized in the `.harness/` directory:
 
 ```
-.
+Skill Directory Structure (this skill):
+├── SKILL.md               # This file - skill definition
+├── docs/                  # Harness usage guides (only in skill)
+│   └── design/            # Workflows, capture guides, logging guides
+├── templates/             # Project docs templates (copied to user project)
+│   └── docs/              # Project docs templates (architecture, principles, tools)
+├── references/            # Reference materials (copied to user project)
+└── scripts/               # Helper scripts (partially copied to user project)
+
+User Project .harness/ Structure (after setup):
 ├── .harness/              # All harness files live here
 │   ├── project.md         # THE MAP - Start here!
-│   ├── docs/              # Documentation
-│   │   ├── architecture/  # Layered architecture, providers pattern
-│   │   ├── design/        # Workflows, getting started
-│   │   ├── principles/    # Core beliefs, golden rules
-│   │   └── tools/         # Linters, observability, testing
-│   ├── references/        # Reference materials (schemas, workflows)
+│   ├── docs/              # YOUR PROJECT DOCUMENTATION (edit these!)
+│   │   ├── architecture/  # Project architecture docs (templates)
+│   │   ├── principles/    # Project principles and standards (templates)
+│   │   └── tools/         # Project tools and setup (templates)
+│   ├── references/        # Harness reference materials
 │   ├── scripts/           # Helper scripts (run these!)
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── decisions/         # Architecture Decision Records (ADRs)
@@ -62,9 +70,7 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 
 ### Setting Up a New Project
 
-1. **Read the Getting Started Guide**: `docs/design/getting-started.md`
-
-2. **Run the setup script**:
+1. **Run the setup script**:
 ```bash
 python3 scripts/setup_harness.py --project-name "My Project" --project-type web
 ```
@@ -74,11 +80,13 @@ This creates:
 - `.harness/features.json` - Feature list with pass/fail tracking (ALL START AS FALSE!)
 - `.harness/progress.md` - Session progress log
 - `.harness/init.sh` - Development server startup script
-- `.harness/docs/` - Complete documentation directory
+- `.harness/docs/` - Project documentation templates (edit these!)
+- `.harness/references/` - Harness reference materials
+- `.harness/scripts/` - Helper scripts
 
 ### Continuing Work (Coding Agent)
 
-**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `.harness/docs/design/session-startup.md`):
+**MANDATORY: FOLLOW THIS EXACT SEQUENCE** (see `references/workflow.md`):
 
 1. **Locate**: `pwd && ls -la` - Confirm environment
 2. **Recall**: Read `git log --oneline -20` - Rebuild timeline
@@ -91,9 +99,7 @@ This creates:
 9. **Begin**: Work on ONE feature
 
 **For complete workflow details, see**:
-- `.harness/docs/design/session-startup.md` - Session startup sequence
-- `.harness/docs/design/feature-workflow.md` - How to implement one feature
-- `.harness/docs/architecture/clean-state.md` - What clean state means
+- `.harness/references/workflow.md` - Complete coding agent workflow guide
 
 ## Feature List Structure
 
@@ -238,7 +244,7 @@ What clean state means:
 - ✅ `features.json` updated
 - ✅ `progress.md` has session summary
 
-**Full details**: `.harness/docs/architecture/clean-state.md`
+**Full details**: See the templates in `.harness/docs/architecture/clean-state.md` (customize for your project)
 
 ---
 
@@ -253,7 +259,7 @@ Enforceable engineering standards (checked by linters):
 5. **Tests Are Part of Feature** - Feature not done without tests
 6. **Structured Logs** - Logs for machines, comments for humans
 
-**Full details**: `.harness/docs/principles/golden-rules.md`
+**Full details**: See the template in `.harness/docs/principles/golden-rules.md` (customize for your project)
 
 ---
 
@@ -265,22 +271,8 @@ Enforceable engineering standards (checked by linters):
 **Providers Pattern**: Cross-cutting concerns (auth, logging, tracing) through single entry point.
 
 **Full details**:
-- `.harness/docs/architecture/layers.md` - Layer definitions
-- `.harness/docs/architecture/providers.md` - Providers pattern
-
----
-
-### Linters as Prompt Injectors
-
-Linters don't just say "wrong"—they tell agents **how to fix it**:
-
-```
-❌ Layer violation: service/auth.ts importing from ui/Button.tsx
-💡 Fix: Move shared logic to utils/ or create a service function
-📚 Reference: .harness/docs/architecture/layers.md
-```
-
-**Full details**: `.harness/docs/tools/linters.md`
+- See the template in `.harness/docs/architecture/layers.md` (customize for your project)
+- See the template in `.harness/docs/architecture/providers.md` (customize for your project)
 
 ---
 
@@ -291,7 +283,7 @@ Your harness code will be obsolete in ~6 months. Design for disposal:
 - Loose coupling like Lego bricks
 - The real value is crash data, not the harness itself
 
-**Full details**: `.harness/docs/principles/build-to-delete.md`
+**Full details**: See the template in `.harness/docs/principles/build-to-delete.md` (customize for your project)
 
 ---
 
@@ -306,7 +298,7 @@ Three adjustments:
 2. Keep PRs short-lived
 3. Don't let flaky tests block everything
 
-**Full details**: `.harness/docs/principles/cost-inversion.md`
+**Full details**: See the template in `.harness/docs/principles/cost-inversion.md` (customize for your project)
 
 ---
 
@@ -314,15 +306,15 @@ Three adjustments:
 
 | Problem | Solution | Reference |
 |---------|----------|-----------|
-| Agent one-shots the app | One feature at a time | `.harness/docs/design/feature-workflow.md` |
-| Agent declares victory too early | Default failure, require testing | `.harness/docs/principles/core.md` |
-| Agent leaves environment broken | Clean state mandatory | `.harness/docs/architecture/clean-state.md` |
-| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/docs/design/session-startup.md` |
-| No observability | Give agents eyes & stethoscope | `.harness/docs/tools/observability.md` |
-| Missing tests | Tests defined in feature schema | `.harness/docs/tools/testing.md` |
+| Agent one-shots the app | One feature at a time | `.harness/references/workflow.md` |
+| Agent declares victory too early | Default failure, require testing | `.harness/docs/principles/core.md` (template) |
+| Agent leaves environment broken | Clean state mandatory | `.harness/docs/architecture/clean-state.md` (template) |
+| Agent wastes time on setup | `.harness/init.sh` + session startup sequence | `.harness/references/workflow.md` |
+| No observability | Give agents eyes & stethoscope | `.harness/docs/tools/observability.md` (template) |
+| Missing tests | Tests defined in feature schema | `.harness/docs/tools/testing.md` (template) |
 | Features built out of order | Use `depends_on` | `references/feature_schema.md` |
-| Architecture drift | Layered architecture + linters | `.harness/docs/architecture/layers.md`, `.harness/docs/tools/linters.md` |
-| Code duplication | Golden rules + shared utils | `.harness/docs/principles/golden-rules.md` |
+| Architecture drift | Layered architecture + linters | `.harness/docs/architecture/layers.md` (template) |
+| Code duplication | Golden rules + shared utils | `.harness/docs/principles/golden-rules.md` (template) |
 
 ## Scripts
 
@@ -354,10 +346,6 @@ Three adjustments:
 - **Quick and easy** - Takes < 5 minutes
 - **Guaranteed capture** - You control what gets logged
 
-### Full Guide
-
-See complete documentation: `.harness/docs/design/capture-workflow.md`
-
 ### The Capture Trigger (Ask Yourself)
 
 After ANY meaningful conversation:
@@ -373,13 +361,13 @@ If YES to ANY → **CAPTURE IT!**
 
 ### The 5 Knowledge Capture Categories
 
-| Category | Directory | Purpose | Guide |
-|----------|-----------|---------|-------|
-| **Discussions** | `.harness/discussions/` | Requirements, design talks, execution plans | [Guide](docs/design/discussion-logging.md) |
-| **Decisions** | `.harness/decisions/` | Architecture Decision Records (ADRs) | [Guide](docs/design/decision-records.md) |
-| **Problems** | `.harness/problems/` | Bugs, debugging, issue resolution | [Guide](docs/design/problem-tracking.md) |
-| **Experiments** | `.harness/experiments/` | Technical spikes, feasibility tests | [Guide](docs/design/experiments.md) |
-| **Retrospectives** | `.harness/retrospectives/` | Lessons learned, process improvement | [Guide](docs/design/retrospectives.md) |
+| Category | Directory | Purpose |
+|----------|-----------|---------|
+| **Discussions** | `.harness/discussions/` | Requirements, design talks, execution plans |
+| **Decisions** | `.harness/decisions/` | Architecture Decision Records (ADRs) |
+| **Problems** | `.harness/problems/` | Bugs, debugging, issue resolution |
+| **Experiments** | `.harness/experiments/` | Technical spikes, feasibility tests |
+| **Retrospectives** | `.harness/retrospectives/` | Lessons learned, process improvement |
 
 ### 1. Discussion Logs
 
@@ -400,7 +388,6 @@ Use for: Important technical and architectural decisions
 
 Create in `.harness/decisions/`:
 - Naming: `adr-XXX-short-title.md`
-- Use template in `.harness/docs/design/decision-records.md`
 
 **When to use**: When making a decision that affects architecture, dependencies, or has long-term consequences
 
@@ -410,7 +397,6 @@ Use for: Bugs, errors, debugging sessions, environment issues
 
 Create in `.harness/problems/`:
 - Naming: `problem-XXX-short-description.md`
-- Use template in `.harness/docs/design/problem-tracking.md`
 
 **When to use**: When encountering and debugging any issue
 
@@ -420,7 +406,6 @@ Use for: Technology evaluation, feasibility testing, prototype validation
 
 Create in `.harness/experiments/`:
 - Naming: `experiment-XXX-short-description.md`
-- Use template in `.harness/docs/design/experiments.md`
 
 **When to use**: When trying new technologies, validating approaches, or testing assumptions
 
@@ -430,7 +415,6 @@ Use for: Periodic review, lessons learned, process improvement
 
 Create in `.harness/retrospectives/`:
 - Naming: `retro-YYYYMMDD-type-description.md`
-- Use templates in `.harness/docs/design/retrospectives.md`
 
 **When to use**: End of sprint, after major milestones, weekly, or after significant learning
 
