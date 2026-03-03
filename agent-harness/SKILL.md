@@ -326,7 +326,6 @@ Three adjustments:
 
 - `scripts/setup_harness.py` - Initialize harness files for a new project
 - `scripts/update_feature.py` - Update feature pass/fail status
-- `scripts/sync_docs.py` - Sync docs between skill and project
 - `scripts/log_discussion.py` - Create structured discussion log files
 
 ## Knowledge Capture System (MANDATORY!)
