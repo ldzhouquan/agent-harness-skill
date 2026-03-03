@@ -31,6 +31,8 @@ First time here? Start with:
 ├── .harness/              # All harness files live here
 │   ├── project.md         # You are here - the map
 │   ├── docs/              # Documentation
+│   ├── references/        # Reference materials (schemas, workflows)
+│   ├── scripts/           # Helper scripts (run these!)
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── decisions/         # Architecture Decision Records (ADRs)
 │   ├── problems/          # Problem tracking & debugging logs
@@ -62,6 +64,15 @@ First time here? Start with:
 - [Custom Linters](docs/tools/linters.md) - Lint rules with auto-fix prompts
 - [Observability](docs/tools/observability.md) - Logs, metrics, and tracing
 - [Testing](docs/tools/testing.md) - Testing requirements and practices
+
+### Reference Materials
+- [Feature Schema](references/feature_schema.md) - JSON schema for features.json
+- [Workflow Guide](references/workflow.md) - Complete coding agent workflow
+
+### Helper Scripts
+- [update_feature.py](scripts/update_feature.py) - Update feature pass/fail status
+- [log_discussion.py](scripts/log_discussion.py) - Create structured discussion logs
+- [capture_discussion.py](scripts/capture_discussion.py) - Quick capture for brainstorm sessions ⭐
 
 ### Knowledge Capture & Logging
 - [Quick Capture Workflow](docs/design/capture-workflow.md) - How to capture brainstorming from ANY skill ⭐
@@ -222,18 +233,40 @@ python main.py
 echo "Starting development server..."
 """
 
-def copy_docs_directory(harness_dir):
-    """Copy the docs directory template to the harness directory."""
+def copy_skill_templates(harness_dir):
+    """Copy docs, references, and scripts templates to the harness directory."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     skill_root = os.path.dirname(script_dir)
-    docs_source = os.path.join(skill_root, 'docs')
     
+    copied = []
+    
+    docs_source = os.path.join(skill_root, 'docs')
     if os.path.exists(docs_source):
         docs_dest = os.path.join(harness_dir, 'docs')
         shutil.copytree(docs_source, docs_dest, dirs_exist_ok=True)
         print(f"Created: {docs_dest}/")
-        return True
-    return False
+        copied.append('docs')
+    
+    refs_source = os.path.join(skill_root, 'references')
+    if os.path.exists(refs_source):
+        refs_dest = os.path.join(harness_dir, 'references')
+        shutil.copytree(refs_source, refs_dest, dirs_exist_ok=True)
+        print(f"Created: {refs_dest}/")
+        copied.append('references')
+    
+    scripts_source = os.path.join(skill_root, 'scripts')
+    if os.path.exists(scripts_source):
+        scripts_dest = os.path.join(harness_dir, 'scripts')
+        shutil.copytree(scripts_source, scripts_dest, dirs_exist_ok=True)
+        
+        setup_script = os.path.join(scripts_dest, 'setup_harness.py')
+        if os.path.exists(setup_script):
+            os.remove(setup_script)
+        
+        print(f"Created: {scripts_dest}/")
+        copied.append('scripts')
+    
+    return copied
 
 def main():
     parser = argparse.ArgumentParser(description='Setup agent harness files with Harness Engineering')
@@ -272,7 +305,7 @@ def main():
     print(f"Created: {init_path}")
 
     if not args.skip_docs:
-        copy_docs_directory(harness_dir)
+        copy_skill_templates(harness_dir)
     
     discussions_dir = os.path.join(harness_dir, 'discussions')
     os.makedirs(discussions_dir, exist_ok=True)

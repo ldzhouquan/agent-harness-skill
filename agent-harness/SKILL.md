@@ -30,6 +30,8 @@ The project uses **progressive disclosure** - start with `.harness/project.md`, 
 │   │   ├── design/        # Workflows, getting started
 │   │   ├── principles/    # Core beliefs, golden rules
 │   │   └── tools/         # Linters, observability, testing
+│   ├── references/        # Reference materials (schemas, workflows)
+│   ├── scripts/           # Helper scripts (run these!)
 │   ├── discussions/       # Agent interaction logs (requirements, design, plans)
 │   ├── decisions/         # Architecture Decision Records (ADRs)
 │   ├── problems/          # Problem tracking & debugging logs
