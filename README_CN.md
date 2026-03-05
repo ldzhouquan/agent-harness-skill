@@ -1,129 +1,161 @@
-# Agent Harness Skill
+# Harness Engineering Skill
 
-基于 OpenAI 的 Harness Engineering 方法论和 Anthropic 长效智能体架构的 AI 智能体开发框架。
+Harness Engineering 方法论的系统化实现，使 AI 智能体能够在稳定、可控和可验证的环境中工作。集成了 Anthropic 的长效智能体架构、OpenAI 的 Harness Engineering 方法论，以及 Agent Harness 作为 AI 时代操作系统的概念。
 
 ## 概述
 
-Agent Harness Skill 提供了一套完整的智能体开发工具和最佳实践，帮助开发者构建高效、可维护、可观测的 AI 驱动应用。
+Harness Engineering Skill 提供了一个完整的框架，用于构建具有纪律性、稳定性和可验证性的 AI 驱动应用。它将重点从直接编写代码转移到设计环境、反馈循环和控制系统，使智能体能够有效地工作。
 
-### 核心理念
+## 核心理念
 
-1. **单智能体，串行执行**：避免决策冲突，保持清晰的执行流程
-2. **记忆外部化**：使用文件、git、日志作为持久化记忆，不依赖上下文窗口
-3. **默认失败**：所有功能初始状态为 `passes: false`，完成后再标记为成功
-4. **一次一个功能**：不进行多任务处理，保持专注
-5. **整洁状态是必须的**：永远不要留下破坏的代码
-6. **可观测性是一等公民**：给智能体眼睛（UI）和听诊器（日志/指标）
-7. **JSON > Markdown**：结构化数据使用 JSON，模型容易破坏 Markdown 结构
-8. **构建以删除**：Harness 代码终将过时，保持轻量
-9. **成本反转**：高吞吐量 = 最小化阻塞关卡
-10. **知识在仓库中**：如果没有版本控制，对于智能体来说就不存在
+### 1. 单智能体串行架构
+- 避免多智能体决策冲突
+- 同一大脑在不同模式下工作：初始化器智能体 vs 编码智能体
+- 只有串行才能保证整洁状态的交接
+
+### 2. 外部记忆系统
+- 依赖文件系统、日志和 Git 历史，而不是内部记忆
+- 通过结构化文件传递工作，消除遗忘风险
+- 持久化日志和 Git 历史使新会话独立
+
+### 3. 整洁状态
+- 每个会话结束时，代码必须可运行，文档必须更新
+- 满足主分支合并标准
+- 永远不要为下一班留下破坏的代码
+- Git 回滚机制确保稳定性
+
+### 4. 结构化知识库
+- 使用 `.agent.md` 作为地图（目录），而不是手册
+- 使用 `docs/` 目录存储详细知识
+- 渐进式信息披露
+- 知识必须在仓库中 - 如果不在，就不存在
+
+### 5. 架构即法律
+- 强制执行不变量，不微观管理实现
+- 分层架构：代码只能向前依赖，永远不能向后
+- Providers 模式：所有公共能力通过统一入口
+- Linter 作为提示：自定义 linter 提供修复说明
+
+### 6. 成本函数反转
+- 在智能体世界中：修复便宜，等待昂贵
+- 快速发布、快速暴露、快速修复
+- 最小化阻塞关卡，缩短 PR 生命周期
+- 永远不要让 flaky 测试无限期阻塞进度
+
+### 7. 构建以删除
+- Harness 必须轻量级，像乐高积木
+- 新模型带来新的智能体构建方法
+- Harness 是数据帐篷 - 捕获崩溃轨迹作为训练数据
+- 不要抗拒重构和删除，学会撒下监控网
 
 ## 项目结构
 
 ```
-agent-harness-skill/
-├── agent-harness/
-│   ├── SKILL.md              # 技能定义文件
-│   ├── docs/                 # 文档模板
-│   │   ├── architecture/     # 架构文档
-│   │   ├── design/           # 设计文档
-│   │   ├── principles/       # 核心原则
-│   │   └── tools/            # 工具文档
-│   ├── scripts/              # 脚本工具
-│   │   ├── setup_harness.py  # 项目初始化脚本
-│   │   └── update_feature.py # 功能状态更新脚本
-│   ├── references/           # 参考资料
-│   └── assets/               # 资源文件
-└── README.md                  # 英文版本
-└── README_CN.md               # 中文版本（本文件）
+agent-harness/
+├── SKILL.md              # 技能定义文件
+├── workflow.md           # 完整工作流和检查清单
+├── modules.md            # 核心模块索引
+└── modules/              # 详细模块文档
+    ├── initialization.md      # 项目初始化模板
+    ├── knowledge-base.md      # 知识库管理
+    ├── feature-management.md  # 功能清单管理
+    ├── development-workflow.md # 增量开发
+    ├── architecture-enforcement.md # 架构约束
+    ├── code-merge.md          # 代码合并策略
+    ├── autonomous-development.md # 端到端自治
+    └── technical-debt.md      # 技术债务处理
 ```
 
-## 初始化后的项目结构
+## 5 阶段工作流
 
-当你运行初始化脚本时，会创建：
+### 阶段 1：项目初始化（初始化器智能体）
+设置环境，创建知识库结构，建立基本约束。
 
-```
-your-project/
-├── .harness/                 # 所有 harness 文件都在这里
-│   ├── project.md           # 知识地图（导航入口）
-│   ├── docs/                # 文档
-│   ├── features.json        # 功能跟踪（全部初始化为 FALSE！）
-│   ├── progress.md          # 会话进度日志
-│   └── init.sh              # 开发服务器启动脚本
-```
+**创建的关键文件：**
+- `.agent.md` - 项目地图（导航入口）
+- `architecture.md` - 架构鸟瞰图
+- `feature_list.json` - 功能清单（全部 pass: false）
+- `progress.txt` - 进度日志
+- `docs/` 目录结构
+
+### 阶段 2：功能规划
+创建结构化功能清单，明确所有需求。
+
+### 阶段 3：增量开发（编码智能体）
+一次一个功能，保持整洁状态。
+
+**启动序列（每个会话必须执行）：**
+1. **定位** - 运行 `pwd` 确认工作目录
+2. **回忆** - 读取 `progress.txt` 和 Git 提交历史
+3. **认领任务** - 读取 `feature_list.json`，找到最高优先级且尚未通过的任务
+4. **恢复** - 运行测试验证基本功能正常
+5. **验证** - 在开始新开发工作前确认系统健康
+
+### 阶段 4：验证与合并
+测试、审查、合并，保持高吞吐量。
+
+### 阶段 5：持续维护
+持续清理技术债务，保持架构一致性。
+
+## 不可打破的铁律
+
+1. **整洁状态原则不可打破** - 每个会话结束时代码必须可运行
+2. **一次一个功能** - 永远不允许同时处理多个功能
+3. **知识必须在仓库中** - 重要信息必须写入文件
+4. **架构即法律** - 必须强制执行分层和 Providers 模式
+5. **构建以删除** - Harness 代码必须轻量级以便于重构
+
+## 常见借口与现实检查
+
+| 借口 | 现实 |
+|------|------|
+| "这只是一个小修复，我会跳过测试" | 小修复会破坏大系统。先测试。 |
+| "我稍后会更新文档" | 稍后永远不会来。仓库外的知识不存在。 |
+| "这个架构太僵化了" | 约束带来速度。没有护栏，你会撞车。 |
+| "我可以同时处理多个功能" | 上下文窗口是有限的。串行执行防止遗忘。 |
+| "等待测试太慢了" | 稍后修复 bug 慢 10 倍。成本函数反转适用。 |
 
 ## 快速开始
 
 ### 安装 Skill
 
-将 `agent-harness.skill` 文件安装到你的 Claude Desktop 或支持技能的 IDE 中。
+将技能安装到你的 Trae IDE 或支持技能的环境中：
+
+1. 将 `agent-harness/` 目录复制到你的技能目录
+2. 或使用提供的安装脚本
 
 ### 初始化新项目
 
-在新项目目录中运行：
+按照 [workflow.md](agent-harness/workflow.md) 中的初始化检查清单：
 
-```bash
-python setup_harness.py --project-name "My Awesome Project" --project-type web
-```
+1. 初始化 Git 仓库
+2. 使用模板创建 `.agent.md`
+3. 创建 `architecture.md`
+4. 设置 `docs/` 目录结构
+5. 创建 `feature_list.json`
+6. 创建 `progress.txt`
 
-这将创建：
-- `.harness/project.md` - 知识地图
-- `.harness/docs/` - 完整的文档目录
-- `.harness/features.json` - 功能跟踪清单
-- `.harness/progress.md` - 会话进度日志
-- `.harness/init.sh` - 开发服务器启动脚本
+## 关键文档
 
-## 核心文档
+- **[SKILL.md](agent-harness/SKILL.md)** - 技能定义和核心理念
+- **[workflow.md](agent-harness/workflow.md)** - 完整工作流和检查清单
+- **[modules.md](agent-harness/modules.md)** - 核心模块索引
+- **[modules/initialization.md](agent-harness/modules/initialization.md)** - 项目初始化模板
 
-- [架构概览](agent-harness/docs/architecture/overview.md) - 理解整体架构
-- [核心原则](agent-harness/docs/principles/core.md) - 我们的信念
-- [入门指南](agent-harness/docs/design/getting-started.md) - 新项目的第一步
-- [分层架构](agent-harness/docs/architecture/layers.md) - 代码结构规范
-- [黄金规则](agent-harness/docs/principles/golden-rules.md) - 可执行的工程标准
+## 记住
 
-## 工作流程
-
-1. **读取知识地图** - 每次会话开始先读 `.harness/project.md`
-2. **遵循会话启动序列** - 按照 `.harness/docs/design/session-startup.md` 执行
-3. **一次一个功能** - 从 `.harness/features.json` 中选择下一个功能
-4. **保持整洁状态** - 结束时确保代码可运行
-5. **记录进度** - 更新 `.harness/progress.md`
-
-## 脚本工具
-
-### setup_harness.py
-
-初始化新项目的 harness 文件。
-
-```bash
-python setup_harness.py [OPTIONS]
-
-Options:
-  --project-name TEXT    项目名称
-  --project-type TEXT    项目类型 [web|backend|data]
-  --output-dir TEXT      输出目录
-  --skip-docs            跳过 docs 目录复制
-```
-
-### update_feature.py
-
-更新功能的通过/失败状态。
-
-```bash
-python update_feature.py [OPTIONS]
-
-Options:
-  --feature-index INTEGER  功能索引（0 基）
-  --feature-id TEXT        功能 ID（索引的替代方案）
-  --passes BOOLEAN         True 或 False
-  --file TEXT              Features 文件路径
-```
+- **不要问智能体能为你做什么，问你能为智能体提供什么**
+- **给智能体一张地图，而不是一本手册**
+- **架构即法律，Linter 即提示，规则即乘数**
+- **修复便宜，等待昂贵**
+- **构建以删除 - Harness 是数据帐篷**
+- **纪律正从代码本身转向工程脚手架**
+- **现在最困难的挑战集中在设计环境、反馈循环和控制系统上**
 
 ## 参考文献
 
 - [OpenAI Harness Engineering](https://openai.com/index/harness-engineering)
-- [Anthropic 长效智能体架构](https://www.anthropic.com/index/long-running-agents)
+- [Anthropic 长效智能体](https://www.anthropic.com/index/long-running-agents)
 
 ## 许可证
 
