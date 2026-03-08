@@ -25,7 +25,7 @@ Harness Engineering Skill 提供了一个完整的框架，用于构建具有纪
 - Git 回滚机制确保稳定性
 
 ### 4. 结构化知识库
-- 使用 `.agent.md` 作为地图（目录），而不是手册
+- 使用 `AGENTS.md` 作为地图（目录），而不是手册
 - 使用 `docs/` 目录存储详细知识
 - 渐进式信息披露
 - 知识必须在仓库中 - 如果不在，就不存在
@@ -72,7 +72,7 @@ agent-harness/
 设置环境，创建知识库结构，建立基本约束。
 
 **创建的关键文件：**
-- `.agent.md` - 项目地图（导航入口）
+- `AGENTS.md` - 项目地图（导航入口）
 - `architecture.md` - 架构鸟瞰图
 - `feature_list.json` - 功能清单（全部 pass: false）
 - `progress.txt` - 进度日志
@@ -129,7 +129,7 @@ agent-harness/
 按照 [workflow.md](agent-harness/workflow.md) 中的初始化检查清单：
 
 1. 初始化 Git 仓库
-2. 使用模板创建 `.agent.md`
+2. 使用模板创建 `AGENTS.md`
 3. 创建 `architecture.md`
 4. 设置 `docs/` 目录结构
 5. 创建 `feature_list.json`

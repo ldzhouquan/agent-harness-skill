@@ -2,9 +2,9 @@
 
 ↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
 
-## 1. Create .agent.md Template
+## 1. Create AGENTS.md Template
 ```markdown
-# Agent Map
+# Project Map
 
 &gt; This is a map, not a manual. Follow directions to find needed information.
 

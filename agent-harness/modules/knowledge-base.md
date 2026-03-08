@@ -8,7 +8,7 @@
 - All embedded in code repo, versioned, centralized
 
 ## Progressive Information Disclosure
-- Start with 100-line `.agent.md`
+- Start with 100-line `AGENTS.md`
 - Then told where to find next information
 - Not overwhelmed at start
 

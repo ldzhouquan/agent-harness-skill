@@ -36,7 +36,7 @@ graph TD
 - [ ] **Setup CI/CD Pipeline** (e.g., GitHub Actions)
 - [ ] **Configure Linter & Formatter** (Architecture rules enforcement)
 - [ ] **Initialize Test Framework**
-- [ ] Create `.agent.md` (project map)
+- [ ] Create `AGENTS.md` (project map)
 - [ ] Create `architecture.md` (architecture bird's eye view)
 - [ ] Create `docs/` directory structure
 - [ ] Create `feature_list.json` (feature inventory)

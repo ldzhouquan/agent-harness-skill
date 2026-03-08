@@ -25,7 +25,7 @@ The Harness Engineering Skill provides a complete framework for building AI-powe
 - Git rollback mechanism for stability
 
 ### 4. Structured Knowledge Base
-- Use `.agent.md` as map (table of contents), not manual
+- Use `AGENTS.md` as map (table of contents), not manual
 - Use `docs/` directory for detailed knowledge
 - Progressive information disclosure
 - Knowledge must be in repository - if not, it doesn't exist
@@ -72,7 +72,7 @@ agent-harness/
 Set up environment, create knowledge base structure, establish basic constraints.
 
 **Key Files Created:**
-- `.agent.md` - Project map (navigation entry)
+- `AGENTS.md` - Project map (navigation entry)
 - `architecture.md` - Architecture bird's eye view
 - `feature_list.json` - Feature inventory (all pass: false)
 - `progress.txt` - Progress log
@@ -129,7 +129,7 @@ Install the skill into your Trae IDE or skill-supported environment:
 Follow the initialization checklist in [workflow.md](agent-harness/workflow.md):
 
 1. Initialize Git repository
-2. Create `.agent.md` using the template
+2. Create `AGENTS.md` using the template
 3. Create `architecture.md`
 4. Set up `docs/` directory structure
 5. Create `feature_list.json`

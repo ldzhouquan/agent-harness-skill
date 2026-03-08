@@ -7,7 +7,7 @@ This document outlines the core modules of the Harness Engineering Skill. Each m
 ## Module Index
 
 - **[Module 1: Project Initialization](modules/initialization.md)**
-  - Templates for `.agent.md`, `architecture.md`
+  - Templates for `AGENTS.md`, `architecture.md`
   - Directory structure setup
 
 - **[Module 2: Knowledge Base Management](modules/knowledge-base.md)**
