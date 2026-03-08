@@ -29,7 +29,8 @@ When implementing features or fixing bugs, you **MUST** follow the steps in **[M
 4. **Architecture Is Law** - Layering and Providers pattern must be enforced.
 5. **Build to Delete** - Harness code must be lightweight for easy refactoring.
 6. **Observability First** - Agent must "see" system state (logs, metrics, screenshots) to verify itself.
-7. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
+7. **Cost Function Inversion** - Pay upfront for design/tests to avoid exponential debugging costs later.
+8. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
 
 ## Architecture & Linter Enforcement Protocol
 
