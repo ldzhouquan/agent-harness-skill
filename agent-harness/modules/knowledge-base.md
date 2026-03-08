@@ -1,5 +1,7 @@
 # Module 2: Knowledge Base Management
 
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+
 ## Structured Document Organization
 - Design docs cataloged and indexed, each with validation status
 - Execution plans split into in-progress, completed

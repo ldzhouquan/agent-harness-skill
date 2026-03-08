@@ -1,18 +1,29 @@
 # Module 3: Feature Inventory Management
 
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+
 ## JSON Format (Strong Structure)
-Why JSON over Markdown:
-- Markdown not strict enough structurally, easy to cause indentation chaos or accidental deletion
-- JSON's strong structure effectively prevents structural corruption
-- Prompt requires only modifying pass field, not changing test description or structure
+- **Mandatory Field**: `verification_plan` (How will you verify this works?)
+- Prevents hallucination by requiring upfront planning
+- Example:
+```json
+{
+  "features": [
+    {
+      "id": "feature-001",
+      "description": "User login flow",
+      "verification_plan": "E2E test simulating valid/invalid credentials",
+      "pass": false
+    }
+  ]
+}
+```
 
 ## Default Failure Principle
-- All features default to false
-- Must complete testing before allowing change to true
-- Eliminate hallucinations
+- All features default to `false`
+- **No Plan without Verification**: You cannot start work without a clear verification strategy
+- Must execute verification plan successfully before flipping to `true`
 
 ## One Feature At A Time
-- Each wakeup reads feature inventory
-- Select one feature with pass still false
-- Implement and test, then commit update
+- Select one feature -> Implement -> Verify -> Commit
 - Ensure no cumulative errors between multiple sessions

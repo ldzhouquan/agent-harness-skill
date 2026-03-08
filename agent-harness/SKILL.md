@@ -1,17 +1,55 @@
 ---
 name: harness
-description: Use when initializing projects, enforcing architecture constraints, or managing long-running agent workflows. Implements Harness Engineering methodology for stable, verifiable development.
+description: Use when initializing projects, enforcing architecture constraints, or executing long-running development workflows that require strict verification.
 ---
 
 # Harness Engineering Skill
 
 ## Overview
 
-Systematically implements the Harness Engineering methodology, enabling agents to work in a stable, controllable, and verifiable environment. Integrates Anthropic's long-running agent architecture, OpenAI's Harness Engineering methodology, and the concept of Agent Harness as the operating system for the AI era.
+Systematically implements the Harness Engineering methodology, enabling agents to work in a stable, controllable, and verifiable environment.
 
-&lt;HARD-GATE&gt;
-Before using this Skill, please ensure you have read and understood the docs/Harness Agent.md document.
-&lt;/HARD-GATE&gt;
+**Core Philosophy:**
+- **Design Environment**: Build scaffolding (CI, Lint, Directory Structure) for agents to thrive.
+- **Clarify Intent**: Deconstruct requirements into unambiguous specs.
+- **Build Feedback Loop**: Use Reflexion Loop (Design -> Code -> Review -> Test -> Fix) for self-correction.
+
+## Unbreakable Iron Laws
+
+1. **Clean State** - Code must be runnable at end of each session.
+2. **One Feature At A Time** - Never allow handling multiple features simultaneously.
+3. **Knowledge Must Be In Repository** - If it's not in the repo (file/doc), it doesn't exist.
+4. **Architecture Is Law** - Layering and Providers pattern must be enforced.
+5. **Build to Delete** - Harness code must be lightweight for easy refactoring.
+6. **Observability First** - Agent must "see" system state (logs, metrics, screenshots) to verify itself.
+7. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
+
+## Architecture & Linter Enforcement Protocol
+
+**Treat Linters as Context Injection, NOT just error reporting.**
+
+1. **Linter Error = Fix Instruction**
+   - When a linter reports an error, it is providing a **specific prompt** for remediation.
+   - You MUST read the error message as a directive and refactor the code immediately.
+   - **DO NOT** ignore, suppress, or bypass linter errors.
+
+2. **Zero Tolerance Policy**
+   - A task is **NOT complete** until all linter checks pass.
+   - Linter violations are treated with the same severity as compilation errors or failing tests.
+
+3. **Autonomous Refactoring**
+   - You are expected to resolve architecture violations (e.g., layering issues, forbidden patterns) **autonomously**.
+   - Do not ask the user for permission to fix a linter error; just fix it.
+
+**Detailed Rules & Examples:**
+👉 **[Module 5: Architecture Constraint Enforcement](modules/architecture-enforcement.md)**
+
+## Next Steps (Progressive Disclosure)
+
+**Start here first, then go deeper as needed:**
+
+1. **[Complete Workflow](workflow.md)** - 5 阶段执行流程
+2. **[Core Module Details](modules.md)** - 实现细节、文件模板和具体策略
 
 ## Common Rationalizations & Reality Checks
 
@@ -22,77 +60,11 @@ Before using this Skill, please ensure you have read and understood the docs/Har
 | "This architecture is too rigid" | Constraints enable speed. Without guardrails, you crash. |
 | "I can handle multiple features at once" | Context windows are finite. Serial execution prevents amnesia. |
 | "Waiting for tests is slow" | Fixing bugs later is 10x slower. Cost function inversion applies. |
+| "This new tech is cool" | Boring tech is predictable. Agents need predictability, not hype. |
 
-## Core Principles
+## When Should Stop and Ask
 
-### 1. Single Agent Serial Architecture
-- Avoid multi-agent decision conflicts
-- Same brain in different modes: initializer agent vs coding agent
-- Only serial guarantees clean state handoffs
-
-### 2. External Memory System
-- Rely on filesystem, logs, and Git history instead of internal memory
-- Transfer work via structured files, eliminate amnesia risk
-- Persistent logs and Git history make new sessions independent
-
-### 3. Clean State
-- Code must be runnable, docs updated at end of each session
-- Meet main branch merge standards
-- Never leave broken code for next shift
-- Git rollback mechanism for stability
-
-### 4. Structured Knowledge Base
-- Use `.agent.md` as map (table of contents), not manual
-- Use `docs/` directory for detailed knowledge
-- Progressive information disclosure
-- Knowledge must be in repository - if not, it doesn't exist
-
-### 5. Architecture is Law
-- Enforce invariants, don't micromanage implementation
-- Layered architecture: code can only depend forward, never backward
-- Providers pattern: all public capabilities through unified entry
-- Linter as prompts: custom linters provide fix instructions
-
-### 6. Cost Function Inversion
-- In agent world: fixing is cheap, waiting is expensive
-- Fast release, fast exposure, fast fix
-- Minimize blocking gates, short PR lifecycle
-- Never let flaky tests block progress indefinitely
-
-### 7. Build to Delete
-- Harness must be lightweight, like Lego bricks
-- New models bring new agent construction approaches
-- Harness is the data tent - capture crash trajectories as training data
-- Don't resist refactoring and deletion, learn to cast monitoring net
-
-## Detailed Reference
-
-**This skill uses progressive disclosure to save context.**
-
-- **[Workflow & Checklists](workflow.md)**: Detailed execution phases, startup sequences, and checklists for every stage.
-- **[Module Details & Templates](modules.md)**: Implementation details, file templates (like `.agent.md`), and specific strategies for each module.
-
-## Key Constraints
-
-### Unbreakable Iron Laws
-1. **Clean State Principle Unbreakable** - code must be runnable at end of each session
-2. **One Feature At A Time** - never allow handling multiple features simultaneously
-3. **Knowledge Must Be In Repository** - important info must be written to files
-4. **Architecture Is Law** - layering and Providers pattern must be enforced
-5. **Build to Delete** - Harness code must be lightweight for easy refactoring
-
-### When Should Stop and Ask
 - Plan has critical gaps cannot start
 - Don't understand an instruction
 - Verification repeatedly fails
 - Encountering situations involving directional choices
-
-## Remember
-
-- **Don't ask what agent can do for you, ask what you can provide for agent**
-- **Give agent a map, not a manual**
-- **Architecture is law, Linter is prompt, rules are multiplier**
-- **Fixing cheap, waiting expensive**
-- **Build to Delete - Harness is the data tent**
-- **Discipline is shifting from code itself to engineering scaffolding**
-- **Now most difficult challenges focus on designing environment, feedback loops, and control systems**

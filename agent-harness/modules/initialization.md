@@ -1,6 +1,8 @@
 # Module 1: Project Initialization
 
-## Create .agent.md Template
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+
+## 1. Create .agent.md Template
 ```markdown
 # Agent Map
 
@@ -27,7 +29,7 @@
 3. Knowledge Must Be In Repository - if not in repo, doesn't exist
 ```
 
-## Create architecture.md Template
+## 2. Create architecture.md Template
 ```markdown
 # Architecture Bird's Eye View
 
@@ -56,7 +58,7 @@ All public capabilities must enter through unified Providers entry:
 **Prohibited:** Any other path is not allowed.
 ```
 
-## Create docs/ Directory Structure
+## 3. Create docs/ Directory Structure
 ```
 docs/
 ├── designs/           # Design docs (with validation status)
@@ -67,3 +69,33 @@ docs/
 ├── tech-debt/         # Technical debt tracking
 └── quality-scores/    # Quality score docs
 ```
+
+## 4. Scaffold Engineering Environment (Crucial)
+
+**You MUST set up the automated machinery before writing code.**
+
+### A. Setup Linter & Formatter
+- **Action**: Create config files (`.eslintrc`, `checkstyle.xml`, `.pylintrc`).
+- **Rule**: Enforce "Industry Standard" + "Custom Architecture Rules".
+- **Goal**: Machine-enforced constraints, not just human review.
+
+### B. Initialize Test Framework
+- **Action**: Setup test runner (Jest, JUnit, Pytest).
+- **Rule**: Ensure `npm test` or equivalent runs instantly.
+- **Goal**: Enable TDD feedback loop from minute one.
+
+### C. Configure CI Pipeline
+- **Action**: Create `.github/workflows/ci.yml` (or equivalent).
+- **Content**:
+  - Checkout code
+  - Install dependencies
+  - Run Lint
+  - Run Tests
+- **Goal**: The "Truth" of Clean State is defined by the CI status, not local machine.
+
+### D. Configure Observability (Eyes & Ears)
+- **Action**: Setup Logging & Reporting.
+  - Create `logs/` directory (gitignored).
+  - Configure Test Reporter (e.g., `jest-html-reporter`, `junit-xml`).
+  - Configure Logger (e.g., `winston`, `log4j`) to output to both console and file.
+- **Goal**: Give the Agent "eyes" to see runtime state and "ears" to hear system health.

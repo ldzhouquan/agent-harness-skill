@@ -1,5 +1,7 @@
 # Core Module Details
 
+↩️ [返回概览](SKILL.md) | [查看工作流](workflow.md)
+
 This document outlines the core modules of the Harness Engineering Skill. Each module is detailed in a separate file for progressive disclosure.
 
 ## Module Index
