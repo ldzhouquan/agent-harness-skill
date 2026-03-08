@@ -1,6 +1,6 @@
 ---
 name: harness
-description: Use when initializing projects, enforcing architecture constraints, or executing long-running development workflows that require strict verification.
+description: Use when initializing projects, implementing features, fixing bugs, or refactoring code. Enforces strict engineering protocols and verification loops.
 ---
 
 # Harness Engineering Skill
@@ -15,6 +15,11 @@ Systematically implements the Harness Engineering methodology, enabling agents t
 - **Build Feedback Loop**: Use Reflexion Loop as the **Main Execution Engine**.
 
 **The Reflexion Loop (Design -> Code -> Review -> Test -> Fix) is NOT an optional step. It IS the workflow.**
+
+**MANDATORY EXECUTION PATH:**
+When implementing features or fixing bugs, you **MUST** follow the steps in **[Module 4: Incremental Development Workflow](modules/development-workflow.md)**.
+- **Violation of the "STOP" protocol** (retrying without observation) is a critical failure.
+- **Violation of the "Clean State" protocol** (leaving broken code) is a critical failure.
 
 ## Unbreakable Iron Laws
 

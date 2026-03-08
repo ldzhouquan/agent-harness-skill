@@ -36,13 +36,18 @@ The Harness Engineering Skill provides a complete framework for building AI-powe
 - Providers pattern: all public capabilities through unified entry
 - Linter as prompts: custom linters provide fix instructions
 
-### 6. Cost Function Inversion
+### 6. Observability First
+- Agent must "see" system state to verify itself
+- Give Agent "eyes" (screenshots/DOM snapshots) and "ears" (logs/metrics)
+- Test failure = STOP -> OBSERVE -> HYPOTHESIZE -> FIX
+
+### 7. Cost Function Inversion
 - In agent world: fixing is cheap, waiting is expensive
 - Fast release, fast exposure, fast fix
 - Minimize blocking gates, short PR lifecycle
 - Never let flaky tests block progress indefinitely
 
-### 7. Build to Delete
+### 8. Build to Delete
 - Harness must be lightweight, like Lego bricks
 - New models bring new agent construction approaches
 - Harness is the data tent - capture crash trajectories as training data
