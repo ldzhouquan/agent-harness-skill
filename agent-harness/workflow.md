@@ -13,13 +13,16 @@ graph TD
     Verify --> Maintain[Phase 5: Continuous Maintenance]
     Maintain --> Dev
     
-    subgraph "Reflexion Loop"
+    %% Reflexion Loop IS the Main Execution Engine
+    %% It replaces the traditional linear Dev->Test flow
+    subgraph "Reflexion Loop (Phase 3: Implementation)"
     Plan --> Design[Design Specs]
     Design --> Dev[Implement]
-    Dev --> Review[Self-Review]
-    Review --> Test[Run Tests]
-    Test -->|Fail| Analyze[Reflexion & Fix]
-    Analyze --> Dev
+    Dev --> Lint[Lint & Static Check]
+    Lint --> Test[Run Tests]
+    Test -->|Fail| Analyze[Reflexion Analysis]
+    Analyze -->|Fix Code| Dev
+    Analyze -->|Fix Design| Design
     Test -->|Pass| Protocol[Pre-Completion Protocol]
     Protocol --> Verify
     end

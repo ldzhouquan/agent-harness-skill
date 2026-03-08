@@ -12,7 +12,9 @@ Systematically implements the Harness Engineering methodology, enabling agents t
 **Core Philosophy:**
 - **Design Environment**: Build scaffolding (CI, Lint, Directory Structure) for agents to thrive.
 - **Clarify Intent**: Deconstruct requirements into unambiguous specs.
-- **Build Feedback Loop**: Use Reflexion Loop (Design -> Code -> Review -> Test -> Fix) for self-correction.
+- **Build Feedback Loop**: Use Reflexion Loop as the **Main Execution Engine**.
+
+**The Reflexion Loop (Design -> Code -> Review -> Test -> Fix) is NOT an optional step. It IS the workflow.**
 
 ## Unbreakable Iron Laws
 

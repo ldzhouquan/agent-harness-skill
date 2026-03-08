@@ -13,7 +13,7 @@
 ## Reflexion Protocol (The Feedback Loop)
 
 **Agent MUST execute this loop continuously:**
-`Design -> Implement -> Self-Review -> Test -> Reflexion`
+`Design -> Implement -> Lint -> Test -> Reflexion`
 
 ### 1. When Tests Fail (Fail Fast, Look First, Think Slow)
 **STOP immediately. Do NOT retry blindly.**
@@ -24,9 +24,11 @@
 2. **Hypothesize**: Why did it fail? (Logic error? Environment? Flaky?)
 3. **Instrument**: Add more logs if current ones are insufficient.
 4. **Plan Fix**: Formulate a new plan based on **evidence**.
+   - If code logic is wrong -> **Fix Code**.
+   - If design is flawed -> **Fix Design** (Update specs first).
 5. **Execute**: Apply fix only after understanding root cause.
 
-### 2. When Tests Pass (Success Check)
+### 2. When Tests Pass (Success Check & Self-Review)
 **Do NOT celebrate yet. Verify quality:**
 1. **Architecture Check**: Did I violate layering? (Run Linter)
 2. **Tech Debt Check**: Did I leave hardcoded values or TODOs?
