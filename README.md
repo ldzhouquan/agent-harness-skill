@@ -41,17 +41,11 @@ The Harness Engineering Skill provides a complete framework for building AI-powe
 - Give Agent "eyes" (screenshots/DOM snapshots) and "ears" (logs/metrics)
 - Test failure = STOP -> OBSERVE -> HYPOTHESIZE -> FIX
 
-### 7. Cost Function Inversion
-- In agent world: fixing is cheap, waiting is expensive
-- Fast release, fast exposure, fast fix
-- Minimize blocking gates, short PR lifecycle
-- Never let flaky tests block progress indefinitely
-
-### 8. Build to Delete
-- Harness must be lightweight, like Lego bricks
-- New models bring new agent construction approaches
-- Harness is the data tent - capture crash trajectories as training data
-- Don't resist refactoring and deletion, learn to cast monitoring net
+### 7. Test-Driven Development
+- Write the test/reproduction script FIRST
+- Prove failure before fixing
+- Fail fast and cheap (script) vs. fail late and expensive (production)
+- No code is complete without verification
 
 ## Project Structure
 

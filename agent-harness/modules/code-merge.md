@@ -2,7 +2,7 @@
 
 ↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
 
-## Cost Function Inversion
+## Fast Feedback Economics
 **Traditional World:** Fixing expensive, waiting cheap  
 **Agent World:** Fixing cheap, waiting expensive → Fast release, fast exposure, fast fix
 

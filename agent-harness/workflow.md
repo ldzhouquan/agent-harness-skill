@@ -74,7 +74,7 @@ graph TD
 - [ ] **Metrics**: Performance within limits?
 
 **See [Module 6: Code Merge Strategy](modules/code-merge.md) for:**
-- Cost Function Inversion
+- Fast Feedback Economics
 - Three Key Actions (Minimize Blocking Gates, Keep PR Lifecycle Short, Handle Flaky Tests)
 
 ## Phase 5: Continuous Maintenance

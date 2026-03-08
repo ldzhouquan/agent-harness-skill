@@ -27,10 +27,9 @@ When implementing features or fixing bugs, you **MUST** follow the steps in **[M
 2. **One Feature At A Time** - Never allow handling multiple features simultaneously.
 3. **Knowledge Must Be In Repository** - If it's not in the repo (file/doc), it doesn't exist.
 4. **Architecture Is Law** - Layering and Providers pattern must be enforced.
-5. **Build to Delete** - Harness code must be lightweight for easy refactoring.
-6. **Observability First** - Agent must "see" system state (logs, metrics, screenshots) to verify itself.
-7. **Cost Function Inversion** - Pay upfront for design/tests to avoid exponential debugging costs later.
-8. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
+5. **Observability First** - Agent must "see" system state (logs, metrics, screenshots) to verify itself.
+6. **Test-Driven Development** - Write the test/reproduction script FIRST. Prove failure before fixing.
+7. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
 
 ## Architecture & Linter Enforcement Protocol
 
@@ -67,7 +66,7 @@ When implementing features or fixing bugs, you **MUST** follow the steps in **[M
 | "I'll update the docs later" | Later never comes. Knowledge outside repo doesn't exist. |
 | "This architecture is too rigid" | Constraints enable speed. Without guardrails, you crash. |
 | "I can handle multiple features at once" | Context windows are finite. Serial execution prevents amnesia. |
-| "Waiting for tests is slow" | Fixing bugs later is 10x slower. Cost function inversion applies. |
+| "Waiting for tests is slow" | Debugging is the most expensive activity. TDD is the only shortcut. |
 | "This new tech is cool" | Boring tech is predictable. Agents need predictability, not hype. |
 
 ## When Should Stop and Ask
