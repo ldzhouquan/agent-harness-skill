@@ -98,4 +98,5 @@ docs/
   - Create `logs/` directory (gitignored).
   - Configure Test Reporter (e.g., `jest-html-reporter`, `junit-xml`).
   - Configure Logger (e.g., `winston`, `log4j`) to output to both console and file.
+  - **(Optional) Setup Visual Testing**: Install `jest-image-snapshot` or Playwright for UI projects.
 - **Goal**: Give the Agent "eyes" to see runtime state and "ears" to hear system health.

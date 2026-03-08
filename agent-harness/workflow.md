@@ -67,7 +67,7 @@ graph TD
 
 **Observability Checklist (Must Have):**
 - [ ] **Logs**: No error logs during test run?
-- [ ] **Snapshots**: UI components look correct?
+- [ ] **Visuals**: DOM snapshots passed? (or UI screenshots matched?)
 - [ ] **Metrics**: Performance within limits?
 
 **See [Module 6: Code Merge Strategy](modules/code-merge.md) for:**
