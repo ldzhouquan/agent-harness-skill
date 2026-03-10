@@ -14,12 +14,24 @@ Systematically implements the Harness Engineering methodology, enabling agents t
 - **Clarify Intent**: Deconstruct requirements into unambiguous specs.
 - **Build Feedback Loop**: Use Reflexion Loop as the **Main Execution Engine**.
 
-**The Reflexion Loop (Design -> Code -> Review -> Test -> Fix) is NOT an optional step. It IS the workflow.**
+> **🗺️ PROJECT MAP**: The file **`AGENTS.md`** in the project root is your primary navigation map. It indexes all documentation, plans, and feature lists. **Always read it first.**
 
-**MANDATORY EXECUTION PATH:**
-When implementing features or fixing bugs, you **MUST** follow the steps in **[Module 4: Incremental Development Workflow](modules/development-workflow.md)**.
-- **Violation of the "STOP" protocol** (retrying without observation) is a critical failure.
-- **Violation of the "Clean State" protocol** (leaving broken code) is a critical failure.
+## 🚦 Role-Based Dispatcher (Start Here)
+
+**Identify your current mission and follow the link:**
+
+| Mission Type | Your Role | ⚡️ Action Protocol |
+| :--- | :--- | :--- |
+| **Start New Project** | Initializer Agent | 👉 **[Module 1: Project Initialization](modules/initialization.md)** |
+| **Implement Feature** | Coding Agent | 👉 **[Module 4: Development Workflow](modules/development-workflow.md)** |
+| **Fix Bug / Refactor** | Coding Agent | 👉 **[Module 4: Development Workflow](modules/development-workflow.md)** |
+| **Plan / Design** | Architect Agent | 👉 **[Module 3: Feature Management](modules/feature-management.md)** |
+| **Submit Code** | Reviewer Agent | 👉 **[Module 6: Code Merge Strategy](modules/code-merge.md)** |
+
+> **⚠️ Critical Warning:**
+> The Reflexion Loop (Design -> Code -> Review -> Test -> Fix) is NOT an optional step. It IS the workflow.
+> - **Violation of the "STOP" protocol** (retrying without observation) is a critical failure.
+> - **Violation of the "Clean State" protocol** (leaving broken code) is a critical failure.
 
 ## Unbreakable Iron Laws
 
@@ -35,28 +47,11 @@ When implementing features or fixing bugs, you **MUST** follow the steps in **[M
 
 **Treat Linters as Context Injection, NOT just error reporting.**
 
-1. **Linter Error = Fix Instruction**
-   - When a linter reports an error, it is providing a **specific prompt** for remediation.
-   - You MUST read the error message as a directive and refactor the code immediately.
-   - **DO NOT** ignore, suppress, or bypass linter errors.
+1. **Linter Error = Fix Instruction**: Do not ask permission. Fix immediately.
+2. **Zero Tolerance**: Task is NOT complete until all linter checks pass.
+3. **Autonomous Refactoring**: Resolve architecture violations autonomously.
 
-2. **Zero Tolerance Policy**
-   - A task is **NOT complete** until all linter checks pass.
-   - Linter violations are treated with the same severity as compilation errors or failing tests.
-
-3. **Autonomous Refactoring**
-   - You are expected to resolve architecture violations (e.g., layering issues, forbidden patterns) **autonomously**.
-   - Do not ask the user for permission to fix a linter error; just fix it.
-
-**Detailed Rules & Examples:**
-👉 **[Module 5: Architecture Constraint Enforcement](modules/architecture-enforcement.md)**
-
-## Next Steps (Progressive Disclosure)
-
-**Start here first, then go deeper as needed:**
-
-1. **[Complete Workflow](workflow.md)** - 5 阶段执行流程
-2. **[Core Module Details](modules.md)** - 实现细节、文件模板和具体策略
+👉 **Detailed Rules:** **[Module 5: Architecture Constraint Enforcement](modules/architecture-enforcement.md)**
 
 ## Common Rationalizations & Reality Checks
 

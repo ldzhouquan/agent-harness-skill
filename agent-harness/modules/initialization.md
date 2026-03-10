@@ -100,3 +100,23 @@ docs/
   - Configure Logger (e.g., `winston`, `log4j`) to output to both console and file.
   - **(Optional) Setup Visual Testing**: Install `jest-image-snapshot` or Playwright for UI projects.
 - **Goal**: Give the Agent "eyes" to see runtime state and "ears" to hear system health.
+
+## E. Handover Protocol (The Golden Spike)
+
+**Verification: Proof of Life**
+Before handing over to the Coding Agent, you MUST prove the environment works by implementing a "Tracer Bullet" feature.
+
+**The "Hello World" Test:**
+1.  **Create** a dummy feature in `feature_list.json` (e.g., "System Health Check").
+2.  **Write** a failing test for it.
+3.  **Implement** the minimal code.
+4.  **Verify** test passes, linter passes, logs are generated.
+5.  **Delete** the dummy feature (Clean State).
+
+**Result:**
+- CI Pipeline: Verified Green ✅
+- Test Runner: Verified Working ✅
+- Linter: Verified Enforcing ✅
+- Logs: Verified Writable ✅
+
+**Only then is Initialization Complete.**
