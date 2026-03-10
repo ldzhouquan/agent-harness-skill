@@ -7,8 +7,8 @@
 1. **Locate**: Run `pwd` to confirm working directory
 2. **Ground**: Run `ls -R` (limit depth) and read config files (e.g., `package.json`, `pyproject.toml`) to understand environment
 3. **Recall**: Read `progress.txt`, `feature_list.json`, and `git log -20`
-4. **Claim**: Select highest priority feature with `pass: false`
-5. **Verify**: Run basic tests to confirm system health before starting
+4. **Verify**: Run basic tests to confirm system health before starting
+5. **Claim**: Select highest priority feature with `pass: false`
 
 ## Reflexion Protocol (The Feedback Loop)
 

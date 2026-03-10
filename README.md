@@ -85,10 +85,10 @@ One feature at a time, maintain Clean State.
 
 **Startup Sequence (MUST execute EVERY session):**
 1. **Locate** - Run `pwd` to confirm working directory
-2. **Recall** - Read `progress.txt` and Git commit history
-3. **Claim Task** - Read `feature_list.json`, find highest priority not yet passed
-4. **Restore** - Run tests to verify basic functionality works
-5. **Validate** - Confirm system health before starting new development work
+2. **Ground** - Run `ls -R` and read config files to understand environment
+3. **Recall** - Read `progress.txt`, `feature_list.json`, and `git log -20`
+4. **Verify** - Run basic tests to confirm system health before starting
+5. **Claim** - Select highest priority feature with `pass: false`
 
 ### Phase 4: Verification & Merge
 Test, review, merge, maintain high throughput.
