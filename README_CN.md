@@ -24,7 +24,7 @@
 - **痛点**: 智能体在"盲写"代码，无法像人类一样看到运行时错误或界面异常。
 - **解法**: **Observability First**。集成日志分析和截图验证，强制 Agent 在修改代码前先"观察"系统状态。
 
-## � 快速开始 (Getting Started)
+## 📦 快速开始 (Getting Started)
 
 ### 1. 安装 (Installation)
 将 `agent-harness/` 目录复制到你的项目根目录下。
@@ -41,7 +41,7 @@ cp -r /path/to/agent-harness-skill/agent-harness ./agent-harness
 ### 3. 验证 (Verification)
 Agent 应该会自动开始执行 **Module 1: Project Initialization**，并创建 `AGENTS.md` 和 `progress.txt`。
 
-## �� 项目结构
+## 📂 项目结构
 
 ```
 agent-harness/
