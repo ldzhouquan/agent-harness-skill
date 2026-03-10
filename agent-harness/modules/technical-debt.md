@@ -1,6 +1,6 @@
 # Module 8: Technical Debt Handling
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## Golden Principles
 1. **Prefer shared utility libraries** - prohibit handwritten utility functions in different modules

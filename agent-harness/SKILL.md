@@ -14,7 +14,7 @@ Systematically implements the Harness Engineering methodology, enabling agents t
 - **Clarify Intent**: Deconstruct requirements into unambiguous specs.
 - **Build Feedback Loop**: Use Reflexion Loop as the **Main Execution Engine**.
 
-> **🗺️ PROJECT MAP**: The file **`AGENTS.md`** in the project root is your primary navigation map. It indexes all documentation, plans, and feature lists. **Always read it first.**
+> **🗺️ PROJECT MAP**: The file **`AGENTS.md`** in the project root is your primary navigation map. It indexes all documentation, plans, and feature lists. **Always read it first.** See **[Module 2: Knowledge Base](modules/knowledge-base.md)** for details.
 
 ## 🚦 Role-Based Dispatcher (Start Here)
 
@@ -26,6 +26,7 @@ Systematically implements the Harness Engineering methodology, enabling agents t
 | **Implement Feature** | Coding Agent | 👉 **[Module 4: Development Workflow](modules/development-workflow.md)** |
 | **Fix Bug / Refactor** | Coding Agent | 👉 **[Module 4: Development Workflow](modules/development-workflow.md)** |
 | **Plan / Design** | Architect Agent | 👉 **[Module 3: Feature Management](modules/feature-management.md)** |
+| **Cleanup / Optimize** | Coding Agent | 👉 **[Module 8: Technical Debt](modules/technical-debt.md)** |
 | **Submit Code** | Reviewer Agent | 👉 **[Module 6: Code Merge Strategy](modules/code-merge.md)** |
 
 > **⚠️ Critical Warning:**

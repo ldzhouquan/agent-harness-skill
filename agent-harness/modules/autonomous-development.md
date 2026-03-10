@@ -1,6 +1,6 @@
 # Module 7: End-to-End Autonomous Development
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## When to Use Autonomous Development
 **You can switch to fully autonomous mode ONLY when:**

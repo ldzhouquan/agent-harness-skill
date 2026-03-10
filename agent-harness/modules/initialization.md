@@ -1,6 +1,6 @@
 # Module 1: Project Initialization
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## 1. Create AGENTS.md Template
 ```markdown

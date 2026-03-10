@@ -1,11 +1,17 @@
 # Module 5: Architecture Constraint Enforcement
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## Layered Architecture
 - Each business domain divided into fixed layers
 - From types layer to config layer, to data access layer, to service layer, to runtime layer, finally to interface layer
 - Code can only depend forward, never backward
+
+## Technology Selection: Choose "Boring" Technologies
+- **Good composability**: Older tech APIs are usually simpler, more standardized.
+- **Stable API**: Won't change interfaces frequently (unlike bleeding-edge frameworks).
+- **Training Data Density**: Large models have seen millions of examples of "Boring" tech.
+- **Transparency**: Sometimes better to build your own simple wheel than introduce a black-box 3rd party library.
 
 ## Providers Pattern
 - All public capabilities must enter through unified Providers entry

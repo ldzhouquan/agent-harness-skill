@@ -1,6 +1,6 @@
 # Module 6: Code Merge Strategy
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## Fast Feedback Economics
 **Traditional World:** Fixing expensive, waiting cheap  

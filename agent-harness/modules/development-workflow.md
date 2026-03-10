@@ -1,6 +1,6 @@
 # Module 4: Incremental Development Workflow
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## Context Discovery Phase (Startup)
 **Must execute at start of EVERY session:**

@@ -1,161 +1,70 @@
-# Harness Engineering Skill
+# 🛡️ Harness Engineering Skill
 
-A systematic implementation of the Harness Engineering methodology, enabling AI agents to work in a stable, controllable, and verifiable environment. Integrates Anthropic's long-running agent architecture, OpenAI's Harness Engineering methodology, and the concept of Agent Harness as the operating system for the AI era.
+> The Operating System for Autonomous AI Agents.
 
-## Overview
+A systematic implementation of **Harness Engineering**, enabling agents to work in a stable, controllable, and verifiable environment. It shifts focus from "writing code" to "designing feedback loops".
 
-The Harness Engineering Skill provides a complete framework for building AI-powered applications with discipline, stability, and verifiability. It shifts the focus from writing code directly to designing the environment, feedback loops, and control systems that enable agents to work effectively.
+## 🚀 Why Harness Engineering?
 
-## Core Principles
+### 1. Eliminate Amnesia
+- **Pain**: Agents operate in discrete sessions. When a new session starts, the agent is fresh and completely amnesic, unable to continue previous work.
+- **Solution**: Enforce **Context Discovery Protocol**. Agents recover full project context within 5 seconds by reading standardized `progress.txt` and `feature_list.json` upon wake-up.
 
-### 1. Single Agent Serial Architecture
-- Avoid multi-agent decision conflicts
-- Same brain in different modes: initializer agent vs coding agent
-- Only serial guarantees clean state handoffs
+### 2. Stop Hallucinations
+- **Pain**: Agents often write code that "looks right but doesn't run", or hallucinate non-existent APIs.
+- **Solution**: **Test-Driven Development (TDD)** + **Reflexion Loop**. Before writing implementation code, a failing test script must be written. No test evidence = code does not exist.
 
-### 2. External Memory System
-- Rely on filesystem, logs, and Git history instead of internal memory
-- Transfer work via structured files, eliminate amnesia risk
-- Persistent logs and Git history make new sessions independent
+### 3. Prevent Architecture Rot
+- **Pain**: As projects grow, agents easily introduce circular dependencies and break layering.
+- **Solution**: **Architecture as Law**. Custom Linter rules are not just suggestions, but unbreakable red lines. CI pipelines directly block any violating code.
 
-### 3. Clean State
-- Code must be runnable, docs updated at end of each session
-- Meet main branch merge standards
-- Never leave broken code for next shift
-- Git rollback mechanism for stability
+### 4. Give Agents Senses
+- **Pain**: Agents code "blindly", unable to see runtime errors or UI anomalies like humans do.
+- **Solution**: **Observability First**. Integrate log analysis and screenshot verification, forcing agents to "observe" system state before modifying code.
 
-### 4. Structured Knowledge Base
-- Use `AGENTS.md` as map (table of contents), not manual
-- Use `docs/` directory for detailed knowledge
-- Progressive information disclosure
-- Knowledge must be in repository - if not, it doesn't exist
+## 📦 Getting Started
 
-### 5. Architecture is Law
-- Enforce invariants, don't micromanage implementation
-- Layered architecture: code can only depend forward, never backward
-- Providers pattern: all public capabilities through unified entry
-- Linter as prompts: custom linters provide fix instructions
+### 1. Installation
+Copy the `agent-harness/` directory to your project root.
 
-### 6. Observability First
-- Agent must "see" system state to verify itself
-- Give Agent "eyes" (screenshots/DOM snapshots) and "ears" (logs/metrics)
-- Test failure = STOP -> OBSERVE -> HYPOTHESIZE -> FIX
+```bash
+cp -r /path/to/agent-harness-skill/agent-harness ./agent-harness
+```
 
-### 7. Test-Driven Development
-- Write the test/reproduction script FIRST
-- Prove failure before fixing
-- Fail fast and cheap (script) vs. fail late and expensive (production)
-- No code is complete without verification
+### 2. Initialization
+Tell your Agent (or add to System Prompt):
 
-## Project Structure
+> "I have installed the Harness Engineering Skill in `./agent-harness`. Please read `agent-harness/SKILL.md` to start the initialization process."
+
+### 3. Verification
+The Agent should automatically start **Module 1: Project Initialization** and create `AGENTS.md` and `progress.txt`.
+
+## 📂 Project Structure
 
 ```
 agent-harness/
-├── SKILL.md              # Skill definition file
-├── workflow.md           # Complete workflow & checklists
-├── modules.md            # Core module index
-└── modules/              # Detailed module documentation
-    ├── initialization.md      # Project initialization templates
-    ├── knowledge-base.md      # Knowledge base management
-    ├── feature-management.md  # Feature inventory management
-    ├── development-workflow.md # Incremental development
-    ├── architecture-enforcement.md # Architecture constraints
-    ├── code-merge.md          # Code merge strategy
-    ├── autonomous-development.md # End-to-end autonomy
-    └── technical-debt.md      # Technical debt handling
+├── SKILL.md              # 🚦 Traffic Control Tower (Entry Point)
+├── workflow.md           # 📋 Detailed Checklists
+└── modules/              # 📚 Knowledge Modules
+    ├── initialization.md      # Setup & Golden Spike
+    ├── knowledge-base.md      # Documentation Strategy
+    ├── feature-management.md  # Planning & Specs
+    ├── development-workflow.md # The Loop
+    ├── architecture-enforcement.md # The Law
+    ├── code-merge.md          # Review & Merge
+    ├── autonomous-development.md # E2E Autonomy
+    └── technical-debt.md      # Cleanup Protocols
 ```
 
-## 5-Phase Workflow
+## ⚡️ Workflow Overview
 
-### Phase 1: Project Initialization (Initializer Agent)
-Set up environment, create knowledge base structure, establish basic constraints.
+1.  **Init**: Setup CI/Lint/Test -> Run "Golden Spike" (Hello World).
+2.  **Plan**: Deconstruct requirements into `feature_list.json`.
+3.  **Dev**: Loop `Locate -> Ground -> Recall -> Verify -> Claim`.
+4.  **Reflexion**: `Design -> Code -> Test -> Fix` (The Engine).
+5.  **Merge**: Verify clean state -> Merge.
 
-**Key Files Created:**
-- `AGENTS.md` - Project map (navigation entry)
-- `architecture.md` - Architecture bird's eye view
-- `feature_list.json` - Feature inventory (all pass: false)
-- `progress.txt` - Progress log
-- `docs/` directory structure
+## 🔗 Quick Links
 
-### Phase 2: Feature Planning
-Create structured feature inventory, clarify all requirements.
-
-### Phase 3: Incremental Development (Coding Agent)
-One feature at a time, maintain Clean State.
-
-**Startup Sequence (MUST execute EVERY session):**
-1. **Locate** - Run `pwd` to confirm working directory
-2. **Ground** - Run `ls -R` and read config files to understand environment
-3. **Recall** - Read `progress.txt`, `feature_list.json`, and `git log -20`
-4. **Verify** - Run basic tests to confirm system health before starting
-5. **Claim** - Select highest priority feature with `pass: false`
-
-### Phase 4: Verification & Merge
-Test, review, merge, maintain high throughput.
-
-### Phase 5: Continuous Maintenance
-Continuously clean technical debt, maintain architectural coherence.
-
-## Unbreakable Iron Laws
-
-1. **Clean State Principle Unbreakable** - code must be runnable at end of each session
-2. **One Feature At A Time** - never allow handling multiple features simultaneously
-3. **Knowledge Must Be In Repository** - important info must be written to files
-4. **Architecture Is Law** - layering and Providers pattern must be enforced
-5. **Build to Delete** - Harness code must be lightweight for easy refactoring
-
-## Common Rationalizations & Reality Checks
-
-| Excuse | Reality |
-|--------|---------|
-| "It's just a small fix, I'll skip the test" | Small fixes break big systems. Test first. |
-| "I'll update the docs later" | Later never comes. Knowledge outside repo doesn't exist. |
-| "This architecture is too rigid" | Constraints enable speed. Without guardrails, you crash. |
-| "I can handle multiple features at once" | Context windows are finite. Serial execution prevents amnesia. |
-| "Waiting for tests is slow" | Fixing bugs later is 10x slower. Cost function inversion applies. |
-
-## Quick Start
-
-### Install the Skill
-
-Install the skill into your Trae IDE or skill-supported environment:
-
-1. Copy the `agent-harness/` directory to your skills directory
-2. Or use the provided installation script
-
-### Initialize a New Project
-
-Follow the initialization checklist in [workflow.md](agent-harness/workflow.md):
-
-1. Initialize Git repository
-2. Create `AGENTS.md` using the template
-3. Create `architecture.md`
-4. Set up `docs/` directory structure
-5. Create `feature_list.json`
-6. Create `progress.txt`
-
-## Key Documentation
-
-- **[SKILL.md](agent-harness/SKILL.md)** - Skill definition and core principles
-- **[workflow.md](agent-harness/workflow.md)** - Complete workflow and checklists
-- **[modules.md](agent-harness/modules.md)** - Core module index
-- **[modules/initialization.md](agent-harness/modules/initialization.md)** - Project initialization templates
-
-## Remember
-
-- **Don't ask what agent can do for you, ask what you can provide for agent**
-- **Give agent a map, not a manual**
-- **Architecture is law, Linter is prompt, rules are multiplier**
-- **Fixing cheap, waiting expensive**
-- **Build to Delete - Harness is the data tent**
-- **Discipline is shifting from code itself to engineering scaffolding**
-- **Now most difficult challenges focus on designing environment, feedback loops, and control systems**
-
-## References
-
-- [OpenAI Harness Engineering](https://openai.com/index/harness-engineering)
-- [Anthropic Long-Running Agents](https://www.anthropic.com/index/long-running-agents)
-
-## License
-
-This project follows applicable open source licenses.
+- **[SKILL.md](agent-harness/SKILL.md)**: **START HERE** - The main entry point for all agents.
+- **[Workflow](agent-harness/workflow.md)**: Detailed step-by-step execution guide.

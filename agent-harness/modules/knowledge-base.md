@@ -1,6 +1,6 @@
 # Module 2: Knowledge Base Management
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## Structured Document Organization
 - Design docs cataloged and indexed, each with validation status
@@ -21,9 +21,3 @@
 - Anything inaccessible in runtime context effectively doesn't exist
 - Slack channels, Google Docs, knowledge in brains - all inaccessible to system
 - Must move important knowledge into repo, but not chaotically - like onboarding new teammates
-
-## Technology Selection: Choose "Boring" Technologies
-- Good composability: older tech APIs usually simpler, more standardized
-- Stable API: won't change interfaces frequently
-- Appears more in training data: large models have seen lots of code using these older technologies
-- Sometimes better to build own wheel than introduce 3rd party library (transparency)

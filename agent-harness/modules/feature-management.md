@@ -1,6 +1,6 @@
 # Module 3: Feature Inventory Management
 
-↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md) | [模块索引](../modules.md)
+↩️ [返回概览](../SKILL.md) | [查看工作流](../workflow.md)
 
 ## JSON Format (Strong Structure)
 - **Mandatory Field**: `verification_plan` (How will you verify this works?)
