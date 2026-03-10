@@ -2,6 +2,8 @@
 
 > The Operating System for Autonomous AI Agents. (自主 AI 智能体的操作系统)
 
+[English Documentation](README.md)
+
 系统化实施 **Harness Engineering** 方法论，使智能体能够在稳定、可控和可验证的环境中工作。它将关注点从“直接写代码”转移到“设计反馈循环”和“控制系统”上。
 
 ## 🚀 为什么选择 Harness Engineering？
@@ -39,7 +41,7 @@ cp -r /path/to/agent-harness-skill/agent-harness ./agent-harness
 ### 3. 验证 (Verification)
 Agent 应该会自动开始执行 **Module 1: Project Initialization**，并创建 `AGENTS.md` 和 `progress.txt`。
 
-## �📂 项目结构
+## �� 项目结构
 
 ```
 agent-harness/

@@ -2,6 +2,8 @@
 
 > The Operating System for Autonomous AI Agents.
 
+[中文文档](README_CN.md)
+
 A systematic implementation of **Harness Engineering**, enabling agents to work in a stable, controllable, and verifiable environment. It shifts focus from "writing code" to "designing feedback loops".
 
 ## 🚀 Why Harness Engineering?
