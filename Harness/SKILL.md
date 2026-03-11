@@ -19,29 +19,18 @@ Systematically implements the Harness Engineering methodology, enabling agents t
      > /dev/null 2>&1 &
    ```
 
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Harness** skill to ACTION...
-   ```
-
-**Full documentation:** `~/.claude/skills/PAI/THENOTIFICATIONSYSTEM.md`
+2. **Output text**: `Running the **WorkflowName** workflow in the **Harness** skill to ACTION...`
 
 ## Workflow Routing
 
-**When executing a workflow, also output this text:**
-
-```
-Running the **WorkflowName** workflow in the **Harness** skill to ACTION...
-```
-
-| Workflow | Trigger | File |
-|----------|---------|------|
-| **Initialize** | "start new project", "initialize project" | `modules/initialization.md` |
-| **Develop** | "implement feature", "fix bug", "refactor" | `modules/development-workflow.md` |
-| **PlanFeature** | "plan feature", "add feature" | `modules/feature-management.md` |
-| **EnforceArchitecture** | "enforce architecture", "check architecture" | `modules/architecture-enforcement.md` |
-| **MergeCode** | "merge code", "submit code", "create PR" | `modules/code-merge.md` |
-| **HandleDebt** | "handle debt", "cleanup", "optimize" | `modules/technical-debt.md` |
+| Workflow | Phase | Trigger | File |
+|----------|-------|---------|------|
+| **Initialize** | 1 | "start new project", "initialize project" | `modules/initialization.md` |
+| **PlanFeature** | 2 | "plan feature", "add feature" | `modules/feature-management.md` |
+| **Develop** | 3 | "implement feature", "fix bug", "refactor" | `modules/development-workflow.md` |
+| **Verify** | 4 | "merge code", "submit code", "create PR" | `modules/code-merge.md` |
+| **Maintain** | 5 | "handle debt", "cleanup", "optimize" | `modules/technical-debt.md` |
+| **EnforceArchitecture** | - | "enforce architecture", "check architecture" | `modules/architecture-enforcement.md` |
 
 ## Examples
 
@@ -69,31 +58,31 @@ User: "Fix the login bug"
 → Proves failure before fixing
 ```
 
-## Quick Reference
+## Core Philosophy
 
-**Core Philosophy:**
-- **Design Environment**: Build scaffolding (CI, Lint, Directory Structure)
-- **Clarify Intent**: Deconstruct requirements into unambiguous specs
-- **Build Feedback Loop**: Use Reflexion Loop as Main Execution Engine
+- **Design Environment**: Build scaffolding (CI, Lint, Directory Structure) for agents to thrive.
+- **Clarify Intent**: Deconstruct requirements into unambiguous specs.
+- **Build Feedback Loop**: Use Reflexion Loop as the **Main Execution Engine**.
 
-**Iron Laws:**
-1. Clean State - Code must be runnable at end of each session
-2. One Feature At A Time
-3. Knowledge Must Be In Repository
-4. Architecture Is Law
-5. Observability First
-6. Test-Driven Development
-7. Choose Boring Technology
+> **⚠️ Critical Warning:**
+> The Reflexion Loop (Design -> Code -> Review -> Test -> Fix) is NOT an optional step. It IS the workflow.
+> - **Violation of the "STOP" protocol** (retrying without observation) is a critical failure.
+> - **Violation of the "Clean State" protocol** (leaving broken code) is a critical failure.
 
-**Key Files:**
-- Project Map: `AGENTS.md`
-- Architecture: `architecture.md`
-- Feature List: `feature_list.json`
+## Unbreakable Iron Laws
 
-**Full Documentation:**
-- Initialization: `SkillSearch('harness initialization')` → modules/initialization.md
-- Development: `SkillSearch('harness development')` → modules/development-workflow.md
-- Feature Management: `SkillSearch('harness feature')` → modules/feature-management.md
-- Architecture: `SkillSearch('harness architecture')` → modules/architecture-enforcement.md
-- Code Merge: `SkillSearch('harness merge')` → modules/code-merge.md
-- Technical Debt: `SkillSearch('harness debt')` → modules/technical-debt.md
+1. **Clean State** - Code must be runnable at end of each session.
+2. **One Feature At A Time** - Never allow handling multiple features simultaneously.
+3. **Knowledge Must Be In Repository** - If it's not in the repo (file/doc), it doesn't exist.
+4. **Architecture Is Law** - Layering and Providers pattern must be enforced.
+5. **Observability First** - Agent must "see" system state (logs, metrics, screenshots) to verify itself.
+6. **Test-Driven Development** - Write the test/reproduction script FIRST. Prove failure before fixing.
+7. **Choose Boring Technology** - Prefer mature, stable tech stacks that agents understand best.
+
+## Architecture & Linter Enforcement Protocol
+
+1. **Linter Error = Fix Instruction**: Do not ask permission. Fix immediately.
+2. **Zero Tolerance**: Task is NOT complete until all linter checks pass.
+3. **Autonomous Refactoring**: Resolve architecture violations autonomously.
+
+👉 **Detailed Rules:** **[Module 5: Architecture Constraint Enforcement](modules/architecture-enforcement.md)**

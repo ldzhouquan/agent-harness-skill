@@ -12,16 +12,16 @@
 [Project name and brief description]
 
 ## Quick Navigation
-- Architecture Overview: [docs/architecture.md](./docs/architecture.md)
-- Feature Inventory: [feature_list.json](./feature_list.json)
-- Progress Log: [progress.txt](./progress.txt)
-- Design Docs: [docs/designs/](./docs/designs/)
-- Execution Plans: [docs/plans/](./docs/plans/)
-- Core Principles: [docs/principles/](./docs/principles/)
-- Product Specs: [docs/specs/](./docs/specs/)
-- References: [docs/references/](./docs/references/)
-- Technical Debt: [docs/tech-debt/](./docs/tech-debt/)
-- Quality Scores: [docs/quality-scores/](./docs/quality-scores/)
+- Architecture Overview: [docs/architecture.md](docs/architecture.md)
+- Feature Inventory: [feature_list.json](feature_list.json)
+- Progress Log: [progress.txt](progress.txt)
+- Design Docs: [docs/designs/](docs/designs/)
+- Execution Plans: [docs/plans/](docs/plans/)
+- Core Principles: [docs/principles/](docs/principles/)
+- Product Specs: [docs/specs/](docs/specs/)
+- References: [docs/references/](docs/references/)
+- Technical Debt: [docs/tech-debt/](docs/tech-debt/)
+- Quality Scores: [docs/quality-scores/](docs/quality-scores/)
 
 ## Core Principles
 1. Clean State - code must be runnable at end of each session

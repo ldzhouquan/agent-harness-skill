@@ -2,33 +2,37 @@
 
 ↩️ [返回概览](SKILL.md)
 
+> **Note:** Module numbers (1-8) represent documentation order, NOT execution priority or importance. Phase 3 (Develop/Reflexion Loop) is the core execution engine where most time is spent.
+
 ## Process Visualization
 
 ```mermaid
 graph TD
-    Start[Start] --> Init[Phase 1: Initialization]
-    Init --> Plan[Phase 2: Feature Planning]
-    Plan --> Dev[Phase 3: Incremental Development]
-    Dev --> Verify[Phase 4: Verification & Merge]
-    Verify --> Maintain[Phase 5: Continuous Maintenance]
+    Start[Start] --> Init[Phase 1: Initialize]
+    Init --> Plan[Phase 2: PlanFeature]
+    Plan --> Dev[Phase 3: Develop]
+    Dev --> Verify[Phase 4: Verify]
+    Verify --> Maintain[Phase 5: Maintain]
     Maintain --> Dev
-    
+
     %% Reflexion Loop IS the Main Execution Engine
     %% It replaces the traditional linear Dev->Test flow
-    subgraph "Reflexion Loop (Phase 3: Implementation)"
+    subgraph "Reflexion Loop (Phase 3: Develop)"
     Plan --> Design[Design Specs]
-    Design --> Dev[Implement]
-    Dev --> Lint[Lint & Static Check]
+    Design --> Impl[Implement]
+    Impl --> Lint[Lint & Static Check]
     Lint --> Test[Run Tests]
     Test -->|Fail| Analyze[Reflexion Analysis]
-    Analyze -->|Fix Code| Dev
+    Analyze -->|Fix Code| Impl
     Analyze -->|Fix Design| Design
     Test -->|Pass| Protocol[Pre-Completion Protocol]
     Protocol --> Verify
     end
 ```
 
-## Phase 1: Project Initialization (Initializer Agent)
+## Phase 1: Initialize
+**Alias:** Project Initialization (Initializer Agent)
+
 **Goal:** Set up environment, create knowledge base structure, establish basic constraints
 
 **Checklist:**
@@ -45,7 +49,9 @@ graph TD
 
 **See [Module 1: Project Initialization](modules/initialization.md) for file templates.**
 
-## Phase 2: Feature Planning
+## Phase 2: PlanFeature
+**Alias:** Feature Planning
+
 **Goal:** Create structured feature inventory, clarify all requirements
 
 **Checklist:**
@@ -56,7 +62,9 @@ graph TD
 
 **See [Module 3: Feature Inventory Management](modules/feature-management.md) for JSON format details.**
 
-## Phase 3: Incremental Development (Coding Agent)
+## Phase 3: Develop
+**Alias:** Incremental Development, Reflexion Loop (Coding Agent)
+
 **Goal:** One feature at a time, maintain Clean State
 
 **See [Module 4: Incremental Development Workflow](modules/development-workflow.md) for:**
@@ -65,7 +73,9 @@ graph TD
 - **Failure Analysis Protocol** (when tests fail)
 - **Pre-Completion Protocol** (before finishing)
 
-## Phase 4: Verification & Merge
+## Phase 4: Verify
+**Alias:** Verification & Merge
+
 **Goal:** Test, review, merge, maintain high throughput
 
 **Observability Checklist (Must Have):**
@@ -77,7 +87,9 @@ graph TD
 - Fast Feedback Economics
 - Three Key Actions (Minimize Blocking Gates, Keep PR Lifecycle Short, Handle Flaky Tests)
 
-## Phase 5: Continuous Maintenance
+## Phase 5: Maintain
+**Alias:** Continuous Maintenance
+
 **Goal:** Continuously clean technical debt, maintain architectural coherence
 
 **See [Module 8: Technical Debt Handling](modules/technical-debt.md) for:**
