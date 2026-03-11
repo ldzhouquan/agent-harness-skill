@@ -75,7 +75,8 @@ docs/
 **You MUST set up the automated machinery before writing code.**
 
 ### A. Setup Linter & Formatter
-- **Action**: Create config files (`.eslintrc`, `checkstyle.xml`, `.pylintrc`, `rulesets/pmd.xml`).
+- **Consultation (Mandatory)**: Ask the user for their preferred Linter/Formatter rules or confirm the recommended stack (e.g., "Shall we use Airbnb ESLint config?").
+- **Action**: Create config files (`.eslintrc`, `checkstyle.xml`, `.pylintrc`, `rulesets/pmd.xml`) only after confirmation.
 - **Rule**: Enforce "Industry Standard" + "Custom Architecture Rules".
 - **Goal**: Machine-enforced constraints, not just human review.
 
