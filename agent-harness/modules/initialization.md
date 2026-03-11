@@ -12,7 +12,7 @@
 [Project name and brief description]
 
 ## Quick Navigation
-- Architecture Overview: [architecture.md](./architecture.md)
+- Architecture Overview: [docs/architecture.md](./docs/architecture.md)
 - Feature Inventory: [feature_list.json](./feature_list.json)
 - Progress Log: [progress.txt](./progress.txt)
 - Design Docs: [docs/designs/](./docs/designs/)
