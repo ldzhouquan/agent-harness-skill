@@ -75,9 +75,16 @@ docs/
 **You MUST set up the automated machinery before writing code.**
 
 ### A. Setup Linter & Formatter
-- **Action**: Create config files (`.eslintrc`, `checkstyle.xml`, `.pylintrc`).
+- **Action**: Create config files (`.eslintrc`, `checkstyle.xml`, `.pylintrc`, `rulesets/pmd.xml`).
 - **Rule**: Enforce "Industry Standard" + "Custom Architecture Rules".
 - **Goal**: Machine-enforced constraints, not just human review.
+
+**Recommended Toolchain:**
+- **JS/TS**: ESLint (Airbnb/Standard) + Prettier + `eslint-plugin-import`
+- **Java**: Checkstyle (Google) + PMD (Alibaba P3C) + ArchUnit
+  - *Reference*: [Alibaba P3C PMD](https://github.com/alibaba/p3c/tree/master/p3c-pmd)
+- **Python**: Ruff + Black + Mypy
+- **Go**: GolangCI-Lint
 
 ### B. Initialize Test Framework
 - **Action**: Setup test runner (Jest, JUnit, Pytest).
