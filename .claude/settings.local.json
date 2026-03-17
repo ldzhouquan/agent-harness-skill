@@ -4,7 +4,28 @@
       "Bash(gh:*)",
       "Bash(git --version:*)",
       "WebFetch(domain:www.anthropic.com)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git clone:*)",
+      "Bash(ln -s /tmp/anthropics-skills/skills/skill-creator ~/.claude/skills/skill-creator)",
+      "Bash(ls -la /Users/bytedance/workspace/agent-harness-skill/harness-evaluation/iteration-1/eval-0/without_skill/outputs/.*)",
+      "Bash(npm install:*)",
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Git",
+      "Npm",
+      "Pip",
+      "Grep",
+      "Glob"
+    ],
+    "deny": [
+      "Rm",
+      "Ssh",
+      "Sudo"
     ]
   }
 }

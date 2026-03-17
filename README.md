@@ -38,9 +38,9 @@ ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
 ```
 
 ### 2. Initialization
-Tell your Agent (or add to System Prompt):
+Tell your Agent:
 
-> "I have installed the Harness Engineering Skill in `./Harness`. Please read `Harness/SKILL.md` to start the initialization process."
+> “/Harness Please set up a new project for me."
 
 ### 3. Verification
 The Agent should automatically start **Module 1: Project Initialization** and create `AGENTS.md` and `progress.txt`.

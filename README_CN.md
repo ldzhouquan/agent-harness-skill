@@ -40,7 +40,7 @@ ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
 ### 2. 初始化 (Initialization)
 告诉你的 Agent（或在 System Prompt 中添加）：
 
-> "I have installed the Harness Engineering Skill in `./Harness`. Please read `Harness/SKILL.md` to start the initialization process."
+> "/Harness Please set up a new project for me."
 
 ### 3. 验证 (Verification)
 Agent 应该会自动开始执行 **Module 1: Project Initialization**，并创建 `AGENTS.md` 和 `progress.txt`。
