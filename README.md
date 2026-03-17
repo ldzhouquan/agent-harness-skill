@@ -27,16 +27,16 @@ A systematic implementation of **Harness Engineering**, enabling agents to work 
 ## 📦 Getting Started
 
 ### 1. Installation
-Copy the `agent-harness/` directory to your project root.
+Copy the `Harness/` directory to your project root.
 
 ```bash
-cp -r /path/to/agent-harness-skill/agent-harness ./agent-harness
+cp -r /path/to/agent-harness-skill/Harness ./Harness
 ```
 
 ### 2. Initialization
 Tell your Agent (or add to System Prompt):
 
-> "I have installed the Harness Engineering Skill in `./agent-harness`. Please read `agent-harness/SKILL.md` to start the initialization process."
+> "I have installed the Harness Engineering Skill in `./Harness`. Please read `Harness/SKILL.md` to start the initialization process."
 
 ### 3. Verification
 The Agent should automatically start **Module 1: Project Initialization** and create `AGENTS.md` and `progress.txt`.
@@ -44,18 +44,25 @@ The Agent should automatically start **Module 1: Project Initialization** and cr
 ## 📂 Project Structure
 
 ```
-agent-harness/
+Harness/
 ├── SKILL.md              # 🚦 Traffic Control Tower (Entry Point)
 ├── workflow.md           # 📋 Detailed Checklists
+├── Tools/                # 🛠️ Tool scripts
+├── scripts/              # 📜 Automation scripts
+├── references/           # 📚 Reference materials
+│   ├── initialization/
+│   ├── bugfix/
+│   └── development/
 └── modules/              # 📚 Knowledge Modules
-    ├── initialization.md      # Setup & Golden Spike
-    ├── knowledge-base.md      # Documentation Strategy
-    ├── feature-management.md  # Planning & Specs
-    ├── development-workflow.md # The Loop
+    ├── initialization.md           # Setup & Golden Spike
+    ├── feature-management.md       # Planning & Specs
+    ├── development-workflow.md    # The Loop
+    ├── bug-fix-protocol.md        # Bug fix protocol (TDD)
     ├── architecture-enforcement.md # The Law
-    ├── code-merge.md          # Review & Merge
-    ├── autonomous-development.md # E2E Autonomy
-    └── technical-debt.md      # Cleanup Protocols
+    ├── code-merge.md              # Review & Merge
+    ├── autonomous-development.md   # E2E Autonomy
+    ├── technical-debt.md          # Cleanup Protocols
+    └── progress-tracking.md       # Progress tracking
 ```
 
 ## ⚡️ Workflow Overview
@@ -68,5 +75,5 @@ agent-harness/
 
 ## 🔗 Quick Links
 
-- **[SKILL.md](agent-harness/SKILL.md)**: **START HERE** - The main entry point for all agents.
-- **[Workflow](agent-harness/workflow.md)**: Detailed step-by-step execution guide.
+- **[SKILL.md](Harness/SKILL.md)**: **START HERE** - The main entry point for all agents.
+- **[Workflow](Harness/workflow.md)**: Detailed step-by-step execution guide.

@@ -7,56 +7,19 @@ description: Use when initializing projects, implementing features, fixing bugs,
 
 Systematically implements the Harness Engineering methodology, enabling agents to work in a stable, controllable, and verifiable environment.
 
-## Voice Notification
+## Workflow Modules
 
-**When executing a workflow, do BOTH:**
+> ⚠️ **Agent MUST read the appropriate module based on task context**
 
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running WORKFLOWNAME in Harness"}' \
-     > /dev/null 2>&1 &
-   ```
+- **Initialize** → `modules/initialization.md` — new projects, setup
+- **Develop** → `modules/development-workflow.md` — implement features
+- **FixBug** → `modules/bug-fix-protocol.md` — fix bugs, test failures
+- **Verify** → `modules/code-merge.md` — merge, submit, PR
+- **Maintain** → `modules/technical-debt.md` — cleanup, optimize
+- **TrackProgress** → `modules/progress-tracking.md` — update progress
+- **EnforceArchitecture** → `modules/architecture-enforcement.md` — architecture checks
+- **Autonomous** → `modules/autonomous-development.md` — full control mode
 
-2. **Output text**: `Running the **WorkflowName** workflow in the **Harness** skill to ACTION...`
-
-## Workflow Routing
-
-| Workflow | Phase | Trigger | File |
-|----------|-------|---------|------|
-| **Initialize** | 1 | "start new project", "initialize project" | `modules/initialization.md` |
-| **PlanFeature** | 2 | "plan feature", "add feature" | `modules/feature-management.md` |
-| **Develop** | 3 | "implement feature", "fix bug", "refactor" | `modules/development-workflow.md` |
-| **Verify** | 4 | "merge code", "submit code", "create PR" | `modules/code-merge.md` |
-| **Maintain** | 5 | "handle debt", "cleanup", "optimize" | `modules/technical-debt.md` |
-| **EnforceArchitecture** | - | "enforce architecture", "check architecture" | `modules/architecture-enforcement.md` |
-
-## Examples
-
-**Example 1: Start a new project**
-```
-User: "Initialize a new project with TypeScript and testing"
-→ Invokes Initialize workflow
-→ Sets up Git, CI/CD, Linter, Test Framework
-→ Creates AGENTS.md and architecture.md
-```
-
-**Example 2: Implement a feature**
-```
-User: "Add user authentication to the app"
-→ Invokes Develop workflow
-→ Uses Reflexion Loop (Design → Code → Review → Test → Fix)
-→ Maintains Clean State throughout
-```
-
-**Example 3: Fix a bug**
-```
-User: "Fix the login bug"
-→ Invokes Develop workflow
-→ Writes reproduction test first
-→ Proves failure before fixing
-```
 
 ## Core Philosophy
 
@@ -86,3 +49,11 @@ User: "Fix the login bug"
 3. **Autonomous Refactoring**: Resolve architecture violations autonomously.
 
 👉 **Detailed Rules:** **[Module 5: Architecture Constraint Enforcement](modules/architecture-enforcement.md)**
+
+## When Should Stop and Ask
+
+- **Requirements unclear** - e.g., "build an API" without specifying language/framework → ask first
+- **Missing verification plan** - cannot start without knowing how to verify → ask first
+- **Don't understand an instruction** - ask before proceeding
+- **Verification repeatedly fails** - stop and analyze root cause
+- **Technology/direction choices required** - which language, which framework → ask first
