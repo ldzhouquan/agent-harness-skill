@@ -26,16 +26,10 @@ A systematic implementation of **Harness Engineering**, enabling agents to work 
 
 ## 📦 Getting Started
 
-### 1. Installation (Claude Code / Trae)
-Create a symlink to the Harness skill in your Claude Code skills directory:
+### 1. Installation
+Just tell Claude: "Use the Harness skill from `https://github.com/ldzhouquan/agent-harness-skill`"
 
-```bash
-# Clone and link
-git clone https://github.com/ldzhouquan/agent-harness-skill.git
-ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
-```
-
-Or simply tell Claude: "I have Harness skill at `./Harness`" — Claude will use it directly.
+Or clone locally and tell Claude the path.
 
 ### 2. Initialization
 Tell your Agent (or add to System Prompt):

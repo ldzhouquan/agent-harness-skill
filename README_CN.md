@@ -26,16 +26,10 @@
 
 ## 📦 快速开始 (Getting Started)
 
-### 1. 安装 (Claude Code / Trae)
-创建软链接到 Claude Code 的 skills 目录：
+### 1. 安装
+直接告诉 Claude："使用 `https://github.com/ldzhouquan/agent-harness-skill` 的 Harness skill"
 
-```bash
-# 克隆并链接
-git clone https://github.com/ldzhouquan/agent-harness-skill.git
-ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
-```
-
-或者直接告诉 Claude："我的 Harness skill 在 `./Harness`" — Claude 会直接使用它。
+或者克隆到本地，告诉 Claude 路径。
 
 ### 2. 初始化 (Initialization)
 告诉你的 Agent（或在 System Prompt 中添加）：
