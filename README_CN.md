@@ -30,11 +30,12 @@
 创建软链接到 Claude Code 的 skills 目录：
 
 ```bash
-# For Claude Code
-ln -s /path/to/agent-harness-skill/Harness ~/.claude/skills/Harness
+# 克隆并链接
+git clone https://github.com/ldzhouquan/agent-harness-skill.git
+ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
 ```
 
-或者直接告诉 Claude："我的 Harness skill 在 `/path/to/Harness`" — Claude 会直接使用它。
+或者直接告诉 Claude："我的 Harness skill 在 `./Harness`" — Claude 会直接使用它。
 
 ### 2. 初始化 (Initialization)
 告诉你的 Agent（或在 System Prompt 中添加）：
