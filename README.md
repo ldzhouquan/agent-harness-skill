@@ -26,24 +26,7 @@ A systematic implementation of **Harness Engineering**, enabling agents to work 
 
 ## 📦 Getting Started
 
-### 1. Installation
-
-**Option 1:** Tell Claude directly:
-> Use the Harness skill from `https://github.com/ldzhouquan/agent-harness-skill`
-
-**Option 2:** Clone and link:
-```bash
-git clone https://github.com/ldzhouquan/agent-harness-skill.git
-ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
-```
-
-### 2. Initialization
-Tell your Agent (or add to System Prompt):
-
-> "I have installed the Harness Engineering Skill in `./Harness`. Please read `Harness/SKILL.md` to start the initialization process."
-
-### 3. Verification
-The Agent should automatically start **Module 1: Project Initialization** and create `AGENTS.md` and `progress.txt`.
+Use the Harness skill: `/Harness`
 
 ## 📂 Project Structure
 
