@@ -27,9 +27,15 @@
 ## 📦 快速开始 (Getting Started)
 
 ### 1. 安装
-直接告诉 Claude："使用 `https://github.com/ldzhouquan/agent-harness-skill` 的 Harness skill"
 
-或者克隆到本地，告诉 Claude 路径。
+**方式一：** 直接告诉 Claude：
+> 使用 `https://github.com/ldzhouquan/agent-harness-skill` 的 Harness skill
+
+**方式二：** 克隆并链接：
+```bash
+git clone https://github.com/ldzhouquan/agent-harness-skill.git
+ln -s agent-harness-skill/Harness ~/.claude/skills/Harness
+```
 
 ### 2. 初始化 (Initialization)
 告诉你的 Agent（或在 System Prompt 中添加）：
